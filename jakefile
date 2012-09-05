@@ -1,12 +1,33 @@
-task("default", [], function() {
-   console.log("default");
+desc('This is the default task.');
+task('default', function () {
+    console.log('This is the default task.');
 });
 
-desc("Example!");
-task("example", ["dependency"], function() {
-    console.log("example task");
+namespace('foo', function () {
+    desc('This the foo:bar task');
+    task('bar', function () {
+        console.log('doing foo:bar task');
+    });
+
+    desc('This the foo:baz task');
+    task('baz', ['default', 'foo:bar'], function () {
+        console.log('doing foo:baz task');
+    });
+
 });
 
-task("dependency", function() {
-    console.log("dependency");
+
+namespace('test', function () {
+    desc('this runs all the tests');
+    task('all', function () {
+        var t = new jake.TestTask('fonebone', function () {
+            var fileList = [
+                'tests/*',
+                'lib/adapters/**/test.js'
+            ];
+            this.testFiles.include(fileList);
+            this.testFiles.exclude('tests/helper.js');
+            this.testName = 'testMainAndAdapters';
+        });
+    });
 });

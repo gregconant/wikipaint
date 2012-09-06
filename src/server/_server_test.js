@@ -1,7 +1,8 @@
 "use strict";
 
-exports.testNothing = function(test) {
-  test.ok(true, "hello");
-  test.done();
+var server = require("./server.js");
 
+exports.testNothing = function(test) {
+  test.equals(3, server.number(), "number");
+  test.done();
 };

@@ -1,3 +1,4 @@
+/*global desc, task, jake, fail, complete */
 (function () {
     "use strict";
 
@@ -5,7 +6,7 @@
     task("default", ["lint"]);
 
     desc("Lint everything");
-    task("lint", [], function() {
+    task("lint", [], function () {
         var lint = require("./build/lint/lint_runner.js");
 
         var files = new jake.FileList();
@@ -16,12 +17,12 @@
     });
 
     desc("Test everything");
-    task("test", [], function() {
-        console.log("test goes here");
+    task("test", [], function () {
+        var reporter = require("nodeunit").reporters["default"];
     });
 
     desc("Integrate");
-    task("integrate", ["default"], function() {
+    task("integrate", ["default"], function () {
        console.log("1. these are the steps to integrate");
     });
 
@@ -45,5 +46,5 @@
             trailing: true,
             node: true
         };
-    };
+    }
 }());

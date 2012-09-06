@@ -1,12 +1,13 @@
-on episode 9 of Let's Code: Test-Driven Javascript
-http://www.letscodejavascript.com/v1/early_access/ep9.html
+on episode 10 of Let's Code: Test-Driven Javascript
+http://www.letscodejavascript.com/v1/early_access/ep10.html
 
 
 episode 9: creating basic HTTP server
 run "node_modules/spikes/node_http/run.bat" to start the server
 then go to localhost:8080 to hit the server.
 
-
+episode 10: test-driving HTTP server
+at 4:35 in the video
 
 
 to build:

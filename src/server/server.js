@@ -1,5 +1,5 @@
 "use strict";
 
 exports.number = function () {
-    return 3;
+    return "not a number";
 };

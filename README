@@ -1,2 +1,6 @@
 on episode 7 of Let's Code: Test-Driven Javascript
 http://www.letscodejavascript.com/v1/early_access/ep6.html
+
+
+to build:
+    - run ./jake.sh

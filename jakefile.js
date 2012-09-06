@@ -15,10 +15,17 @@
         lint.validateFileList(files.toArray(), options, {});
     });
 
+    desc("Test everything");
+    task("test", [], function() {
+        console.log("test goes here");
+    });
+
     desc("Integrate");
     task("integrate", ["default"], function() {
        console.log("1. these are the steps to integrate");
     });
+
+
 
     function nodeLintOptions() {
         return {

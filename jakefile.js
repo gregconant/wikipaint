@@ -3,7 +3,7 @@
     "use strict";
 
     desc("Build and test");
-    task("default", ["lint"]);
+    task("default", ["lint", "test"]);
 
     desc("Lint everything");
     task("lint", [], function () {
@@ -18,7 +18,10 @@
 
     desc("Test everything");
     task("test", [], function () {
+        console.log("running tests...");
         var reporter = require("nodeunit").reporters["default"];
+        reporter.run(['test']);
+        console.log("tests run");
     });
 
     desc("Integrate");

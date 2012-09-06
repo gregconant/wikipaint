@@ -18,11 +18,14 @@
 
     desc("Test everything");
     task("test", [], function () {
-        console.log("running tests...");
-        var reporter = require("nodeunit").reporters.minimal;
-        reporter.run(['src/server/_server_test.js']);
-        console.log("tests run");
-    });
+
+        var reporter = require("nodeunit").reporters["default"];
+        reporter.run(['src/server/_server_test.js'], null, function (failures) {
+            console.log("tests done");
+            complete();
+        }
+            );
+    }, {async: true});
 
     desc("Integrate");
     task("integrate", ["default"], function () {

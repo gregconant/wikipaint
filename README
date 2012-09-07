@@ -7,7 +7,13 @@ run "node_modules/spikes/node_http/run.bat" to start the server
 then go to localhost:8080 to hit the server.
 
 episode 10: test-driving HTTP server
-at 4:35 in the video
+Exports in node are how you expose functionality between modules.
+If you do a "require" to get a module from another file, like
+var server = require("./server.js"),
+then you can do server.<exportName>() to call the function declared
+as exports.<exportName> in the server.js file.
+Still need to figure out how to get the test not to hang when the server code
+creates a new http server and sits there waiting for a response.
 
 
 to build:

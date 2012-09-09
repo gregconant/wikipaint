@@ -17,3 +17,8 @@ exports.start = function () {
 
     server.listen(8080); // TODO: remove duplication of port #
 };
+
+exports.tearDown = function (test) {
+    console.log("tear down");
+
+};

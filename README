@@ -1,5 +1,5 @@
-on episode 10 of Let's Code: Test-Driven Javascript
-http://www.letscodejavascript.com/v1/early_access/ep10.html
+on episode 11 of Let's Code: Test-Driven Javascript
+http://www.letscodejavascript.com/v1/early_access/ep11.html
 
 
 episode 9: creating basic HTTP server
@@ -15,6 +15,7 @@ as exports.<exportName> in the server.js file.
 Still need to figure out how to get the test not to hang when the server code
 creates a new http server and sits there waiting for a response.
 
+episode 11: lots of learning
 
 to build:
     - run ./jake.sh

@@ -1,5 +1,5 @@
-on episode 11 of Let's Code: Test-Driven Javascript
-http://www.letscodejavascript.com/v1/early_access/ep11.html
+on episode 12 of Let's Code: Test-Driven Javascript
+http://www.letscodejavascript.com/v1/early_access/ep12.html
 
 
 episode 9: creating basic HTTP server
@@ -16,6 +16,9 @@ Still need to figure out how to get the test not to hang when the server code
 creates a new http server and sits there waiting for a response.
 
 episode 11: lots of learning
+have to tell the server to close after running a test on it
+things happen asynchronously so hard to tell the tests to wait while it's waiting for a response
+
 
 to build:
     - run ./jake.sh

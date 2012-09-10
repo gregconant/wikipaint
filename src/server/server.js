@@ -1,12 +1,12 @@
 "use strict";
 
 var http = require("http");
-var myServer;
+var server;
+
 
 exports.start = function () {
-    var server = http.createServer();
+    server = http.createServer();
 
-    myServer = server;
     server.on("request", function (request, response) {
         console.log("Received request");
         var body = "<html><head><title>Node HTTP Test</title><body><p>This is a basic response for node's HTTP server.</p>" +
@@ -18,7 +18,6 @@ exports.start = function () {
     server.listen(8080); // TODO: remove duplication of port #
 };
 
-exports.tearDown = function (test) {
-    console.log("tear down");
-
+exports.stop = function (callback) {
+    server.close(callback);
 };

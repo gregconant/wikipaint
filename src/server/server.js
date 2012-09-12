@@ -11,7 +11,7 @@ exports.start = function () {
             "</body></html>";
         response.end(body);
     });
-    server.listen(8080); // TODO: remove duplication of port #
+    server.listen(8080);
 };
 
 exports.stop = function (callback) {

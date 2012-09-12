@@ -19,6 +19,11 @@ episode 11: lots of learning
 have to tell the server to close after running a test on it
 things happen asynchronously so hard to tell the tests to wait while it's waiting for a response
 
+Lessons Learned #1: CI with Git
+
+episode 12: first client-server test
+
+
 
 to build:
     - run ./jake.sh

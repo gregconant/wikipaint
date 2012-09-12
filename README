@@ -22,7 +22,8 @@ things happen asynchronously so hard to tell the tests to wait while it's waitin
 Lessons Learned #1: CI with Git
 
 episode 12: first client-server test
-
+- have to pass a callback to the teardown for tests and make sure it's called
+- stopping server in teardown
 
 
 to build:

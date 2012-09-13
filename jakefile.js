@@ -6,18 +6,20 @@
     task("default", ["lint", "test"]);
 
     desc("Lint everything");
-    task("lint", [], function () {
-        var lint = require("./build/lint/lint_runner.js");
+    task("lint", ["node"], function () {
+        var lint = require("./build/lint/lint_runner.js"),
+            files = new jake.FileList(),
+            options = nodeLintOptions();
 
-        var files = new jake.FileList();
         files.include("**/*.js");
         files.exclude("node_modules");
-        var options = nodeLintOptions();
+
         lint.validateFileList(files.toArray(), options, {});
     });
 
+
     desc("Test everything");
-    task("test", [], function () {
+    task("test", ["node"], function () {
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(['src/server/_server_test.js'], null, function (failures) {
@@ -31,10 +33,35 @@
 
     desc("Integrate");
     task("integrate", ["default"], function () {
-       console.log("1. these are the steps to integrate");
+        console.log("1. these are the steps to integrate");
     });
 
+    desc("Ensure correct version of Node is present");
+    task("node", [], function () {
+        var command = "node --version",
+            desiredNodeVersion = "v0.8.9",
+            stdout = "",
+            process;
+        console.log(">" + command);
 
+        stdout = "";
+        process = jake.createExec(command, { printStdout: true, printStderr: true });
+
+        process.on("stdout", function (chunk) {
+            stdout += chunk;
+        });
+        process.on("cmdEnd", function () {
+            // remove whitespace from end of string returned so comparison will work
+            stdout = stdout.trim();
+            console.log("Got Node version: " + stdout);
+            if (stdout !== desiredNodeVersion) {
+                fail("Incorrect Node version. Expected '" + desiredNodeVersion + "', got '" + stdout + "'");
+            }
+
+            complete();
+        });
+        process.run();
+    }, { async: true});
 
     function nodeLintOptions() {
         return {

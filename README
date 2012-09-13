@@ -1,7 +1,3 @@
-on episode 12 of Let's Code: Test-Driven Javascript
-http://www.letscodejavascript.com/v1/early_access/ep12.html
-
-
 episode 9: creating basic HTTP server
 run "node_modules/spikes/node_http/run.bat" to start the server
 then go to localhost:8080 to hit the server.
@@ -25,6 +21,23 @@ episode 12: first client-server test
 - have to pass a callback to the teardown for tests and make sure it's called
 - stopping server in teardown
 
+episode 13: a basic "Hello World" server
+http://www.letscodejavascript.com/v1/early_access/ep13.html
+- response you set in the request handler is accessible in tests
+        (response.statusCode = 404;)
+- doing an http.get in the test gives you a "request" object,
+and you can set handlers on events for that request, like an "on response" function, here:
+        var request = http.get("http://localhost:8080");
+        request.on("response", function (response) {
+            <whatever>
+        });
+- same goes for the response object you get back in the "response" handler of the request.
+    i.e.
+        response.on("data", function(chunk) {
+            <whatever>
+        };
+- data returned on response.on("data", ...) handler is a "chunk" which ends up being a buffer.
+We can get this as Text if we do response.setEncoding("utf8");
 
 to build:
     - run ./jake.sh

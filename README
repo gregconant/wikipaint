@@ -40,6 +40,10 @@ and you can set handlers on events for that request, like an "on response" funct
 We can get this as Text if we do response.setEncoding("utf8");
 
 episode 14: polishing up the server
+- error handling - to verify that exceptions are thrown
+    test.throws(function () {
+        server.stop();
+    });
 
 
 

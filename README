@@ -54,6 +54,10 @@ http://www.letscodejavascript.com/v1/early_access/ep15.html
 episode 16: Make them read your crap
 http://www.letscodejavascript.com/v1/early_access/ep16.html
 
+episode 17: Minimum Marketable Feature
+http://www.letscodejavascript.com/v1/early_access/ep17.html
+- we don't have to shell out to get the current version of node. oops!
+
 
 to build:
     - run ./jake.sh

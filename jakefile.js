@@ -2,6 +2,22 @@
 (function () {
     "use strict";
 
+    var NODE_VERSION = "v0.8.9";
+
+    function parseNodeVersion(description, versionString) {
+        var versionMatcher = /^v(\d+)\.(\d+)\.(\d+)$/,    // v[major].[minor].[bugfix]
+            versionInfo = versionString.match(versionMatcher),
+            major = parseInt(versionInfo[1], 10),
+            minor = parseInt(versionInfo[2], 10),
+            bugfix = parseInt(versionInfo[3], 10);
+
+        if (versionInfo === null) {
+            fail("Could not parse " + description + " (was '" + versionString + "')");
+        }
+
+        return [major, minor, bugfix];
+    }
+
     function sh(command, onCommandEnd) {
         var stdout = "",
             process;
@@ -44,7 +60,7 @@
     task("default", ["lint", "test"]);
 
     desc("Lint everything");
-    task("lint", ["node"], function () {
+    task("lint", ["nodeVersion"], function () {
         var lint = require("./build/lint/lint_runner.js"),
             files = new jake.FileList(),
             options = nodeLintOptions();
@@ -57,7 +73,7 @@
 
 
     desc("Test everything");
-    task("test", ["node"], function () {
+    task("test", ["nodeVersion"], function () {
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(['src/server/_server_test.js'], null, function (failures) {
@@ -74,20 +90,35 @@
         console.log("1. these are the steps to integrate");
     });
 
-    desc("Ensure correct version of Node is present");
-    task("node", [], function () {
-        var NODE_VERSION = "v0.8.9",
-            command = "node --version";
+//	desc("Ensure correct version of Node is present. Use 'strict=true' to require exact match");
+    task("nodeVersion", [], function () {
+        var expectedString = NODE_VERSION,
+            actualString = process.version,
+            expected = parseNodeVersion("expected Node version", expectedString),
+            actual = parseNodeVersion("Node version", actualString);
 
-        sh(command, function (stdout) {
-            if (stdout.trim() !== NODE_VERSION) {
-                fail("Incorrect Node version. Expected '" + NODE_VERSION + "', got '" + stdout + "'");
+        function failWithQualifier(qualifier) {
+            fail("Incorrect node version. Expected " + qualifier +
+                     " [" + expectedString + "], but was [" + actualString + "].");
+        }
+
+        if (process.env.strict) {
+            if (actual[0] !== expected[0] || actual[1] !== expected[1] || actual[2] !== expected[2]) {
+                failWithQualifier("exactly");
             }
-            complete();
-        });
-    }, { async: true});
+        } else {
+            if (actual[0] < expected[0]) {
+                failWithQualifier("at least");
+            }
+            if (actual[0] === expected[0] && actual[1] < expected[1]) {
+                failWithQualifier("at least");
+            }
+            if (actual[0] === expected[0] && actual[1] === expected[1] && actual[2] < expected[2]) {
+                failWithQualifier("at least");
+            }
+        }
+        console.log("Node version '" + actualString + "' is at least expected version of '" + expectedString + "'");
 
-
-
+    });
 
 }());

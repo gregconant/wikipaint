@@ -15,7 +15,6 @@
         });
         process.on("cmdEnd", function () {
             // remove whitespace from end of string returned so comparison will work
-            stdout = stdout.trim();
             onCommandEnd(stdout);
         });
         process.run();
@@ -81,7 +80,7 @@
             command = "node --version";
 
         sh(command, function (stdout) {
-            if (stdout !== NODE_VERSION) {
+            if (stdout.trim() !== NODE_VERSION) {
                 fail("Incorrect Node version. Expected '" + NODE_VERSION + "', got '" + stdout + "'");
             }
             complete();

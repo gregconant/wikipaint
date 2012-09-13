@@ -5,13 +5,13 @@ var server;
 
 
 exports.start = function (portNumber) {
-    if(!portNumber) throw "port number is required";
+    if (!portNumber) {
+        throw "port number is required";
+    }
     server = http.createServer();
     server.on("request", function (request, response) {
         var responseText = "Hello World";
-
         response.end(responseText);
-        //response.end();
     });
     server.listen(portNumber);
 };

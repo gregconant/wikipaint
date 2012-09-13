@@ -48,7 +48,11 @@ http://www.letscodejavascript.com/v1/early_access/ep14.html
 
 episode 15: Enforce the node version
 http://www.letscodejavascript.com/v1/early_access/ep15.html
+- calling out to shell with:
+  jake.createExec(command, { printStdout: true, printStderr: true });
 
+episode 16: Make them read your crap
+http://www.letscodejavascript.com/v1/early_access/ep16.html
 
 
 to build:

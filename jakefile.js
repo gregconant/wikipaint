@@ -2,6 +2,45 @@
 (function () {
     "use strict";
 
+    function sh(command, onCommandEnd) {
+        var stdout = "",
+            process;
+
+        console.log(">" + command);
+
+        process = jake.createExec(command, { printStdout: true, printStderr: true });
+
+        process.on("stdout", function (chunk) {
+            stdout += chunk;
+        });
+        process.on("cmdEnd", function () {
+            // remove whitespace from end of string returned so comparison will work
+            stdout = stdout.trim();
+            onCommandEnd(stdout);
+        });
+        process.run();
+    }
+
+    function nodeLintOptions() {
+        return {
+            bitwise: true,
+            curly: false,
+            eqeqeq: true,
+            forin: true,
+            immed: true,
+            latedef: true,
+            newcap: true,
+            noarg: true,
+            noempty: true,
+            nonew: true,
+            regexp: true,
+            undef: true,
+            strict: true,
+            trailing: true,
+            node: true
+        };
+    }
+
     desc("Build and test");
     task("default", ["lint", "test"]);
 
@@ -38,48 +77,18 @@
 
     desc("Ensure correct version of Node is present");
     task("node", [], function () {
-        var command = "node --version",
-            desiredNodeVersion = "v0.8.9",
-            stdout = "",
-            process;
-        console.log(">" + command);
+        var NODE_VERSION = "v0.8.9",
+            command = "node --version";
 
-        stdout = "";
-        process = jake.createExec(command, { printStdout: true, printStderr: true });
-
-        process.on("stdout", function (chunk) {
-            stdout += chunk;
-        });
-        process.on("cmdEnd", function () {
-            // remove whitespace from end of string returned so comparison will work
-            stdout = stdout.trim();
-            console.log("Got Node version: " + stdout);
-            if (stdout !== desiredNodeVersion) {
-                fail("Incorrect Node version. Expected '" + desiredNodeVersion + "', got '" + stdout + "'");
+        sh(command, function (stdout) {
+            if (stdout !== NODE_VERSION) {
+                fail("Incorrect Node version. Expected '" + NODE_VERSION + "', got '" + stdout + "'");
             }
-
             complete();
         });
-        process.run();
     }, { async: true});
 
-    function nodeLintOptions() {
-        return {
-            bitwise: true,
-            curly: false,
-            eqeqeq: true,
-            forin: true,
-            immed: true,
-            latedef: true,
-            newcap: true,
-            noarg: true,
-            noempty: true,
-            nonew: true,
-            regexp: true,
-            undef: true,
-            strict: true,
-            trailing: true,
-            node: true
-        };
-    }
+
+
+
 }());

@@ -39,5 +39,9 @@ and you can set handlers on events for that request, like an "on response" funct
 - data returned on response.on("data", ...) handler is a "chunk" which ends up being a buffer.
 We can get this as Text if we do response.setEncoding("utf8");
 
+episode 14: polishing up the server
+
+
+
 to build:
     - run ./jake.sh

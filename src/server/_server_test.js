@@ -5,6 +5,10 @@ var PORT = "8080";
 var server = require("./server.js");
 var http = require("http");
 
+exports.setUp = function (done) {
+    server.start(8080);
+    done();
+};
 
 exports.tearDown = function (done) {
     console.log("tear down start");
@@ -23,7 +27,7 @@ exports.tearDown = function (done) {
 //};
 
 exports.test_serverReturnsHelloWorldOnGivenPort = function (test) {
-    server.start(8080);
+
     var request = http.get("http://localhost:8080");
     request.on("response", function (response) {
         var receivedData = false;
@@ -40,4 +44,13 @@ exports.test_serverReturnsHelloWorldOnGivenPort = function (test) {
             test.done();
         });
     });
+};
+
+exports.test_serverRunsCallbackWhenStopCompletes = function (test) {
+    server.stop(function () {
+        test.done();    // this proves that the callback is being called, because the test is ending.
+    });
+    server.start(); // this is kludgy
+
+
 };

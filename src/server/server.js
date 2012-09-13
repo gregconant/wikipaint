@@ -4,7 +4,7 @@ var http = require("http");
 var server;
 
 
-exports.start = function () {
+exports.start = function (portNumber) {
     server = http.createServer();
     server.on("request", function (request, response) {
         var responseText = "Hello World";
@@ -12,7 +12,7 @@ exports.start = function () {
         response.end(responseText);
         //response.end();
     });
-    server.listen(8080);
+    server.listen(portNumber);
 };
 
 exports.stop = function (callback) {

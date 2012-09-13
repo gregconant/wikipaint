@@ -68,3 +68,8 @@ exports.test_stopCalledWhenServerIsntRunning_ThrowsException = function (test) {
     });
     test.done();
 };
+
+exports.test_serverServesAFile = function (test) {
+    // TODO: test-drive this functionality
+    test.done();
+};

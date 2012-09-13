@@ -58,9 +58,14 @@ episode 17: Minimum Marketable Feature
 http://www.letscodejavascript.com/v1/early_access/ep17.html
 - we don't have to shell out to get the current version of node. oops!
 - a bunch of code was added to jakefile to verify node version number better.
-- goal now is to serve a one-file homepage
-- serve 404 errors for everything else
-- be able to deploy
+- goal now:
+    - serve a one-file homepage
+    - serve 404 errors for everything else
+    - be able to deploy
+- created spike to prove we can serve a file instead of writing HTML to response directly
+- need to test-drive this in the real server
+
+
 
 to build:
     - run ./jake.sh

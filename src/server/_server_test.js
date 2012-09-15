@@ -71,8 +71,14 @@ exports.test_stopCalledWhenServerIsntRunning_ThrowsException = function (test) {
 };
 
 exports.test_serverServesAFile = function (test) {
-    var testDir = "generated/test";
-    var testFile = testDir + "/test.html";
-    fs.writeFileSync(testFile, "Hello World");
-    test.done();
+    var testDir = "generated/test",
+        testFile = testDir + "/test.html";
+    try {
+        fs.writeFileSync(testFile, "Hello World");
+        test.done();
+    } finally {
+        fs.unlinkSync(testFile);
+        test.ok(!fs.existsSync(testFile), "file should have been deleted.");
+    }
+
 };

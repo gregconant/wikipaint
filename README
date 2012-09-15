@@ -65,6 +65,14 @@ http://www.letscodejavascript.com/v1/early_access/ep17.html
 - created spike to prove we can serve a file instead of writing HTML to response directly
 - need to test-drive this in the real server
 
+episode 18: Test-Driven Files
+http://www.letscodejavascript.com/v1/early_access/ep18.html
+- to create a directory, you can use jake.
+    first, call directory(<dir_name>); in the jakefile, and you can then
+    use <dir_name> as a prerequisite for a jake task to get it to happen before that task is run.
+- to remove a directory, call jake.rmRf(<dir_name>)
+    - this is set up as a task in jakefile called "clean", so run "jake clean" to delete the temp directory.
+
 
 
 to build:

@@ -2,7 +2,17 @@
 (function () {
     "use strict";
 
-    var NODE_VERSION = "v0.8.9";
+    var NODE_VERSION = "v0.8.9",
+        TEMP_TESTFILE_DIR = "generated/test";
+
+    directory(TEMP_TESTFILE_DIR);
+
+
+    desc("Delete all generated files");
+    task("clean", function () {
+        jake.rmRf(TEMP_TESTFILE_DIR);
+
+    });
 
     function parseNodeVersion(description, versionString) {
         var versionMatcher = /^v(\d+)\.(\d+)\.(\d+)$/,    // v[major].[minor].[bugfix]
@@ -73,7 +83,7 @@
 
 
     desc("Test everything");
-    task("test", ["nodeVersion"], function () {
+    task("test", ["nodeVersion", TEMP_TESTFILE_DIR], function () {
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(['src/server/_server_test.js'], null, function (failures) {

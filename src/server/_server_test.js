@@ -1,9 +1,10 @@
 "use strict";
 
-var PORT = "8080";
+var PORT = "8081";
 
 var server = require("./server.js");
 var http = require("http");
+var fs = require("fs");
 
 //exports.setUp = function (done) {
 //    server.start(8080);
@@ -27,8 +28,8 @@ var http = require("http");
 //};
 
 exports.test_serverReturnsHelloWorldOnGivenPort = function (test) {
-    server.start(8080);
-    var request = http.get("http://localhost:8080");
+    server.start(PORT);
+    var request = http.get("http://localhost:" + PORT);
     request.on("response", function (response) {
         var receivedData = false;
         response.setEncoding("utf8");
@@ -56,7 +57,7 @@ exports.test_serverRequiresPortNumber = function (test) {
 };
 
 exports.test_serverRunsCallbackWhenStopCompletes = function (test) {
-    server.start(8080);
+    server.start(PORT);
     server.stop(function () {
         test.done();    // this proves that the callback is being called, because the test is ending.
     });
@@ -70,6 +71,8 @@ exports.test_stopCalledWhenServerIsntRunning_ThrowsException = function (test) {
 };
 
 exports.test_serverServesAFile = function (test) {
-    // TODO: test-drive this functionality
+    var testDir = "generated/test";
+    var testFile = testDir + "/test.html";
+    fs.writeFileSync(testFile, "Hello World");
     test.done();
 };

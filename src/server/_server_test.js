@@ -23,7 +23,6 @@ exports.test_serverServesAFile = function (test) {
         request;
 
     fs.writeFileSync(TEST_FILE, testData);
-
     server.start(TEST_FILE, PORT);
     request = http.get("http://localhost:" + PORT);
     request.on("response", function (response) {
@@ -44,6 +43,40 @@ exports.test_serverServesAFile = function (test) {
 
         });
     });
+};
+
+function httpGet(url, callback) {
+    var request,
+        testDir = "generated/test";
+
+    server.start(TEST_FILE, PORT);
+    request = http.get(url);
+    request.on("response", function (response) {
+        var receivedData = "";
+        response.setEncoding("utf8");
+
+
+        response.on("data", function (chunk) {
+            receivedData = true;
+        });
+        response.on("end", function () {
+            server.stop();
+            callback(response, receivedData);
+        });
+    });
+}
+
+exports.test_serverReturns404ForEverythingExceptHomePage = function (test) {
+    var testData = "This is served from a file",
+        requestUrl = "http://localhost:" + PORT + "/bargle";
+
+    fs.writeFileSync(TEST_FILE, testData);
+    httpGet(requestUrl, function (response, responseData) {
+        test.equals(404, response.statusCode, "status code");
+        test.done();
+    });
+
+
 };
 
 exports.test_serverRequiresFileToServe = function (test) {

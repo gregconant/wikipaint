@@ -11,7 +11,7 @@ exports.start = function (htmlFileToServe, portNumber) {
     }
     server = http.createServer();
     server.on("request", function (request, response) {
-        if (request.url === "/") {
+        if (request.url === "/" || request.url === "/index.html") {
             fs.readFile(htmlFileToServe, function (err, data) {
                 if (err) {  // TODO: fix me
                     throw err;

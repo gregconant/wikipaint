@@ -12,11 +12,13 @@ exports.start = function (htmlFileToServe, portNumber) {
     server = http.createServer();
     server.on("request", function (request, response) {
         if (request.url === "/" || request.url === "/index.html") {
+            console.log("got request for " + request.url);
             fs.readFile(htmlFileToServe, function (err, data) {
                 if (err) {  // TODO: fix me
                     throw err;
                 }
                 response.end(data);
+                console.log("done serving request");
             });
         } else {
             response.statusCode = 404;

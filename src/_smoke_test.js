@@ -13,10 +13,22 @@
 (function () {
     "use strict";
 
+    var child_process = require("child_process");
+
     exports.test_for_smoke = function (test) {
-        test.ok(false, "hi");
-        test.done();
+        var command = "wikipaint homepage.html 404.html 8080";
+        child_process.exec(command, function (error, stdout, stderr) {
+            if(error !== null) {
+                throw error;
+            }
+            console.log("callback");
+            test.done();
+        });
     };
+
+    function runProcess(command) {
+
+    }
 
     function httpGet(url, callback) {
         server.start(TEST_HOME_PAGE, TEST_404_PAGE, PORT);

@@ -16,9 +16,11 @@
     var child_process = require("child_process");
 
     exports.test_for_smoke = function (test) {
-        var command = "wikipaint homepage.html 404.html 8080";
+        var command = "node wikipaint 8080";
         child_process.exec(command, function (error, stdout, stderr) {
-            if(error !== null) {
+            if (error !== null) {
+                console.log(stderr);
+                console.log(stdout);
                 throw error;
             }
             console.log("callback");
@@ -28,24 +30,6 @@
 
     function runProcess(command) {
 
-    }
-
-    function httpGet(url, callback) {
-        server.start(TEST_HOME_PAGE, TEST_404_PAGE, PORT);
-        var request = http.get(url);
-        request.on("response", function (response) {
-            var receivedData = "";
-            response.setEncoding("utf8");
-
-            response.on("data", function (chunk) {
-                receivedData += chunk;
-            });
-            response.on("end", function () {
-                server.stop(function () {
-                    callback(response, receivedData);
-                });
-            });
-        });
     }
 
 }());

@@ -74,11 +74,14 @@ http://www.letscodejavascript.com/v1/early_access/ep18.html
     - this is set up as a task in jakefile called "clean", so run "jake clean" to delete the temp directory.
 
 episode 21: Checking our assumptions
-
 - need to be better about handling errors
 - still a weird problem when running the server through the command line: when you call server.stop() with
     correct parameters, it doesn't make the callback and seems to keep running, though if you tell it to stop again
     it will say it stopped.
+
+episode 22: custom 404 page
+-
+
 
 to build:
     - run ./jake.sh

@@ -2,10 +2,11 @@
 
 var http = require("http"),
     fs = require("fs"),
-    server;
+    server,
+    serveFile;
 
 
-exports.start = function (htmlFileToServe, portNumber) {
+exports.start = function (homePageToServe, notFoundPageToServe, portNumber) {
     if (!portNumber) {
         throw "port number is required";
     }
@@ -13,16 +14,15 @@ exports.start = function (htmlFileToServe, portNumber) {
     server.on("request", function (request, response) {
         if (request.url === "/" || request.url === "/index.html") {
             console.log("got request for " + request.url);
-            fs.readFile(htmlFileToServe, function (err, data) {
-                if (err) {  // TODO: fix me
-                    throw err;
-                }
-                response.end(data);
-                console.log("done serving request");
-            });
+            response.statusCode = 200;
+            serveFile(response, homePageToServe);
+
+            console.log("done serving request");
+
         } else {
             response.statusCode = 404;
-            response.end();
+            serveFile(response, notFoundPageToServe);
+            console.log("done serving 404");
         }
     });
     server.listen(portNumber);
@@ -30,4 +30,14 @@ exports.start = function (htmlFileToServe, portNumber) {
 
 exports.stop = function (callback) {
     server.close(callback);
+};
+
+serveFile = function (response, file) {
+    fs.readFile(file, function (err, data) {
+        if (err) {  // TODO: fix me
+            console.log("error encountered reading file " + file);
+            throw err;
+        }
+        response.end(data);
+    });
 };

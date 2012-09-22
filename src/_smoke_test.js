@@ -13,4 +13,27 @@
 (function () {
     "use strict";
 
+    exports.test_for_smoke = function (test) {
+        test.ok(false, "hi");
+        test.done();
+    };
+
+    function httpGet(url, callback) {
+        server.start(TEST_HOME_PAGE, TEST_404_PAGE, PORT);
+        var request = http.get(url);
+        request.on("response", function (response) {
+            var receivedData = "";
+            response.setEncoding("utf8");
+
+            response.on("data", function (chunk) {
+                receivedData += chunk;
+            });
+            response.on("end", function () {
+                server.stop(function () {
+                    callback(response, receivedData);
+                });
+            });
+        });
+    }
+
 }());

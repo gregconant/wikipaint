@@ -17,18 +17,29 @@
         http = require("http"),
         server = require("./server/server.js"),
         jake = require("jake"),
-        PORT_NUM = "8081";
+        PORT_NUM = "8081",
+        child;
 
-//    exports.test_for_smoke = function (test) {
-//        var nodeArgs = ["src/server/wikipaint", PORT_NUM];
-//        runServer(nodeArgs, function () {
-//            console.log("callback executed");
-//            httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
-//                console.log("got file");
-//                test.done();
-//            });
-//        });
-//    };
+    exports.tearDown = function (done) {
+        child.on("exit", function (code, signal) {
+            console.log("Exit received");
+            done();
+        });
+        console.log("before kill()");
+        child.kill();
+        console.log("after kill()");
+    };
+
+    exports.test_for_smoke = function (test) {
+        var nodeArgs = ["src/server/wikipaint", PORT_NUM];
+        runServer(nodeArgs, function () {
+            console.log("callback executed");
+            httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
+                console.log("in response end callback; got file");
+                test.done();
+            });
+        });
+    };
 
     function runServer(nodeArgs, doneCallback) {
         var child = child_process.spawn("node", nodeArgs);
@@ -60,6 +71,7 @@
                 receivedData += chunk;
             });
             response.on("end", function () {
+                console.log("response ended, stopping server now...");
                 server.stop(function () {
                     console.log("stopping server");
                     callback(response, receivedData);

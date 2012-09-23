@@ -87,6 +87,8 @@ episode 25: The Startup Race
 - need to have callback in server.start so it can let calling code know when the server is started.
     - server.listen takes such a callback! hooray!
 
+episode 25: Child Killer
+-
 
 to build:
     - run ./jake.sh

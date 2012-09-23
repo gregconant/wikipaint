@@ -82,6 +82,8 @@ episode 21: Checking our assumptions
 episode 22: custom 404 page
 - need to create a stand-alone server
 
+episode 25: The Startup Race
+- equivalent to console.log that doesn't put a line break at the end of the line is process.stdout.write
 
 to build:
     - run ./jake.sh

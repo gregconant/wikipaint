@@ -18,33 +18,33 @@
         server = require("./server/server.js"),
         jake = require("jake");
 
-    exports.test_for_smoke = function (test) {
+//    exports.test_for_smoke = function (test) {
+//        var nodeArgs = ["src/server/wikipaint", 8081];
+//        runServer(nodeArgs, function () {
+//            console.log("callback executed");
+//            httpGet("http://localhost:8080", function (response, receivedData) {
+//                console.log("got file");
+//                test.done();
+//            });
+//        });
+//    };
 
-        var nodeArgs = ["src/server/wikipaint 8081"];
-
-        runServer(nodeArgs);
-        setTimeout(function () {
-            console.log("ran server");
-            httpGet("http://localhost:8080", function (response, receivedData) {
-                console.log("got file");
-                test.done();
-            });
-        }, 1000);
-    };
-
-    function runServer(nodeArgs) {
-        var process = child_process.spawn("node", nodeArgs);
-
-        process.stdout.on("data", function (chunk) {
-            console.log("server stdout: " + chunk);
+    function runServer(nodeArgs, doneCallback) {
+        var child = child_process.spawn("node", nodeArgs);
+        child.stdout.setEncoding("UTF8");
+        child.stdout.on("data", function (chunk) {
+            process.stdout.write("server stdout: " + chunk);
+            if (chunk.toString() === "Server started") {
+                doneCallback();
+            }
         });
-        process.stderr.on("data", function (chunk) {
-            console.log("server stderr: " + chunk);
+
+        child.stderr.on("data", function (chunk) {
+            process.stdout.write("server stderr: " + chunk);
         });
-        process.on("exit", function (code, signal) {
-            console.log("server process exited with code [" + code + "] and signal [" + signal + "]");
+        child.on("exit", function (code, signal) {
+            process.stdout.write("server process exited with code [" + code + "] and signal [" + signal + "]");
         });
-//        process.run();
     }
 
     // TODO: eliminate duplication with same function in _server_test.js

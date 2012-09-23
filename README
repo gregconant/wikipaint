@@ -84,6 +84,9 @@ episode 22: custom 404 page
 
 episode 25: The Startup Race
 - equivalent to console.log that doesn't put a line break at the end of the line is process.stdout.write
+- need to have callback in server.start so it can let calling code know when the server is started.
+    - server.listen takes such a callback! hooray!
+
 
 to build:
     - run ./jake.sh

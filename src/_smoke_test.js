@@ -16,13 +16,14 @@
     var child_process = require("child_process"),
         http = require("http"),
         server = require("./server/server.js"),
-        jake = require("jake");
+        jake = require("jake"),
+        PORT_NUM = "8081";
 
 //    exports.test_for_smoke = function (test) {
-//        var nodeArgs = ["src/server/wikipaint", 8081];
+//        var nodeArgs = ["src/server/wikipaint", PORT_NUM];
 //        runServer(nodeArgs, function () {
 //            console.log("callback executed");
-//            httpGet("http://localhost:8080", function (response, receivedData) {
+//            httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
 //                console.log("got file");
 //                test.done();
 //            });
@@ -31,10 +32,10 @@
 
     function runServer(nodeArgs, doneCallback) {
         var child = child_process.spawn("node", nodeArgs);
-        child.stdout.setEncoding("UTF8");
+        child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
             process.stdout.write("server stdout: " + chunk);
-            if (chunk.toString() === "Server started") {
+            if (chunk.trim() === "Server started") {
                 doneCallback();
             }
         });
@@ -60,6 +61,7 @@
             });
             response.on("end", function () {
                 server.stop(function () {
+                    console.log("stopping server");
                     callback(response, receivedData);
                 });
             });

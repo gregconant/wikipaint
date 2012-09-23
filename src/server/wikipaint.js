@@ -9,6 +9,7 @@
     "use strict";
 
     var server = require("./server.js");
-    server.start("homepage.html", "404.html", 8081);
-    process.stdout.write("Server started");
+    server.start("homepage.html", "404.html", 8081, function () {
+        process.stdout.write("Server started");
+    });
 }());

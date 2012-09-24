@@ -23,44 +23,37 @@
 //        runServer(done);
 //    };
 
-    exports.tearDown = function (done) {
-        child.on("exit", function (code, signal) {
-            console.log("Exit received");
-            done();
-        });
-        console.log("before kill()");
-        child.kill();
-        console.log("after kill()");
+    exports.setUp = function(done) {
+        runServer(done);
     };
 
-    exports._test_for_smoke = function (test) {
+    exports.tearDown = function (done) {
+        child.on("exit", function (code, signal) {
+            done();
+        });
+        child.kill();
+    };
+
+    exports._test_canGetHomePage = function (test) {
         console.log("calling RunServer");
-        runServer(function () {
-            console.log("callback executed");
-            httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
-                console.log("in response end callback; got file");
-                test.done();
-            });
+        httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
+            var foundHomePage = (receivedData.indexOf("wikipaint home page") !== -1);
+            test.ok(foundHomePage, "home page should have contained 'wikipaint home page'.");
+            test.done();
         });
     };
+
+    // TODO: check 404 page
 
     function runServer(doneCallback) {
         child = child_process.spawn("node", ["src/server/wikipaint", PORT_NUM]);
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
-            console.log("server stdout: [" + chunk + "]");
             if (chunk.trim() === "Server started") {
                 doneCallback();
             }
 
         });
-
-//        child.stderr.on("data", function (chunk) {
-//            process.stdout.write("server stderr: " + chunk);
-//        });
-//        child.on("exit", function (code, signal) {
-//            process.stdout.write("server process exited with code [" + code + "] and signal [" + signal + "]");
-//        });
     }
 
     // TODO: eliminate duplication with same function in _server_test.js
@@ -75,7 +68,6 @@
                 receivedData += chunk;
             });
             response.on("end", function () {
-                console.log("response ended, stopping server now...");
                 callback(response, receivedData);
             });
         });

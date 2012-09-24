@@ -15,9 +15,7 @@
                 console.log("got request for " + request.url);
                 response.statusCode = 200;
                 serveFile(response, homePageToServe);
-
                 console.log("done serving request");
-
             } else {
                 response.statusCode = 404;
                 serveFile(response, notFoundPageToServe);
@@ -28,7 +26,7 @@
     };
 
     exports.stop = function (callback) {
-        console.log("server stopping");
+        //console.log("server stopping");
         server.close(callback);
     };
 

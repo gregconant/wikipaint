@@ -13,12 +13,15 @@
 (function () {
     "use strict";
 
-    var child_process = require("child_process"),
+    var jake = require("jake"),
+        child_process = require("child_process"),
         http = require("http"),
-        server = require("./server/server.js"),
-        jake = require("jake"),
         PORT_NUM = "8081",
         child;
+
+//    exports.setUp = function (done) {
+//        runServer(done);
+//    };
 
     exports.tearDown = function (done) {
         child.on("exit", function (code, signal) {
@@ -30,9 +33,9 @@
         console.log("after kill()");
     };
 
-    exports.test_for_smoke = function (test) {
-        var nodeArgs = ["src/server/wikipaint", PORT_NUM];
-        runServer(nodeArgs, function () {
+    exports._test_for_smoke = function (test) {
+        console.log("calling RunServer");
+        runServer(function () {
             console.log("callback executed");
             httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
                 console.log("in response end callback; got file");
@@ -41,22 +44,23 @@
         });
     };
 
-    function runServer(nodeArgs, doneCallback) {
-        var child = child_process.spawn("node", nodeArgs);
+    function runServer(doneCallback) {
+        child = child_process.spawn("node", ["src/server/wikipaint", PORT_NUM]);
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
-            process.stdout.write("server stdout: " + chunk);
+            console.log("server stdout: [" + chunk + "]");
             if (chunk.trim() === "Server started") {
                 doneCallback();
             }
+
         });
 
-        child.stderr.on("data", function (chunk) {
-            process.stdout.write("server stderr: " + chunk);
-        });
-        child.on("exit", function (code, signal) {
-            process.stdout.write("server process exited with code [" + code + "] and signal [" + signal + "]");
-        });
+//        child.stderr.on("data", function (chunk) {
+//            process.stdout.write("server stderr: " + chunk);
+//        });
+//        child.on("exit", function (code, signal) {
+//            process.stdout.write("server process exited with code [" + code + "] and signal [" + signal + "]");
+//        });
     }
 
     // TODO: eliminate duplication with same function in _server_test.js
@@ -72,10 +76,7 @@
             });
             response.on("end", function () {
                 console.log("response ended, stopping server now...");
-                server.stop(function () {
-                    console.log("stopping server");
-                    callback(response, receivedData);
-                });
+                callback(response, receivedData);
             });
         });
     }

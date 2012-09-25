@@ -37,8 +37,8 @@
     exports._test_canGetHomePage = function (test) {
         console.log("calling RunServer");
         httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
-            var foundHomePage = (receivedData.indexOf("wikipaint home page") !== -1);
-            test.ok(foundHomePage, "home page should have contained 'wikipaint home page'.");
+            var foundHomePage = (receivedData.indexOf("Welcome to WikiPaint!") !== -1);
+            test.ok(foundHomePage, "home page should have contained 'Welcome to WikiPaint!'.");
             test.done();
         });
     };

@@ -87,8 +87,12 @@ episode 25: The Startup Race
 - need to have callback in server.start so it can let calling code know when the server is started.
     - server.listen takes such a callback! hooray!
 
-episode 25: Child Killer
--
+episode 26: Child Killer
+- we're not stopping the server using the server's built-in methods; we are just killing
+    the node process that is hosting it.
+
+episode 27: Smoked
+
 
 to build:
     - run ./jake.sh

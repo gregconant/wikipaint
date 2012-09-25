@@ -8,8 +8,9 @@
 (function () {
     "use strict";
 
-    var server = require("./server.js");
-    server.start("src/server/content/homepage.html", "404.html", 8081, function () {
+    var server = require("./server.js"),
+        port = process.argv[2];
+    server.start("src/server/content/homepage.html", "404.html", port, function () {
         process.stdout.write("Server started");
     });
 }());

@@ -35,7 +35,6 @@
     };
 
     exports._test_canGetHomePage = function (test) {
-        console.log("calling RunServer");
         httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
             var foundHomePage = (receivedData.indexOf("Welcome to WikiPaint!") !== -1);
             test.ok(foundHomePage, "home page should have contained 'Welcome to WikiPaint!'.");
@@ -43,7 +42,13 @@
         });
     };
 
-    // TODO: check 404 page
+    exports.test_canGet404Page = function (test) {
+        httpGet("http://localhost:" + PORT_NUM + "/somepage", function (response, receivedData) {
+            var foundHomePage = (receivedData.indexOf("404") !== -1);
+            test.ok(foundHomePage, "404 page should have contained '404'.");
+            test.done();
+        });
+    };
 
     function runServer(doneCallback) {
         child = child_process.spawn("node", ["src/server/wikipaint", PORT_NUM]);

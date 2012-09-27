@@ -16,14 +16,14 @@
     var jake = require("jake"),
         child_process = require("child_process"),
         http = require("http"),
-        PORT_NUM = "8081",
+        PORT_NUM = "5000",
         child;
 
 //    exports.setUp = function (done) {
 //        runServer(done);
 //    };
 
-    exports.setUp = function(done) {
+    exports.setUp = function (done) {
         runServer(done);
     };
 
@@ -34,6 +34,7 @@
         child.kill();
     };
 
+    // TODO: factor out common server name
     exports._test_canGetHomePage = function (test) {
         httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
             var foundHomePage = (receivedData.indexOf("Welcome to WikiPaint!") !== -1);
@@ -51,7 +52,7 @@
     };
 
     function runServer(doneCallback) {
-        child = child_process.spawn("node", ["src/server/wikipaint", PORT_NUM]);
+        child = child_process.spawn("foreman", ["start"]);
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
             if (chunk.trim() === "Server started") {

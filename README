@@ -96,8 +96,20 @@ episode 27: Smoked
      - port = process.argv[2];
 - have minimal server up & running; moving on to other things next time
 
-
-
+episode 28: Which Host?
+- working on deploying the site to somewhere real
+- deploying to heroku
+    - uses 'foreman' to run the app in the same way heroku would
+    - Foreman starts all the processes you need to run your app
+    - in smoke_test file, instead of running Node, run Foreman
+    - Foreman needs a procfile that lists the process types in the app
+        - https://devcenter.heroku.com/articles/nodejs#declare-process-types-with-procfile
+        - line in procfile:
+            web: node src/server/wikipaint.js $PORT
+                - $PORT ends up being 5000 because that's just what Foreman uses
+        - run "foreman start" and then browse to localhost:5000 and you'll see the app running
+        - the output of Foreman is different from the usual node responses,
+          so tests probably have to change
 
 to build:
     - run ./jake.sh

@@ -94,7 +94,9 @@ episode 26: Child Killer
 episode 27: Smoked
 - changed wikipaint.js to pass in command line parameter for Port # to the server.start() call.
      - port = process.argv[2];
-- left off at 6:45 into the video
+- have minimal server up & running; moving on to other things next time
+
+
 
 
 to build:

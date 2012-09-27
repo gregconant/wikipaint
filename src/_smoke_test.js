@@ -61,7 +61,6 @@
         });
     }
 
-    // TODO: eliminate duplication with same function in _server_test.js
     function httpGet(url, callback) {
 
         var request = http.get(url);

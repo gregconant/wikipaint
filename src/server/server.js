@@ -32,7 +32,7 @@
 
     function serveFile(response, file) {
         fs.readFile(file, function (err, data) {
-            if (err) {  // TODO: fix me
+            if (err) {
                 console.log("error encountered reading file " + file);
                 throw err;
             }

@@ -9,8 +9,9 @@
     "use strict";
 
     var server = require("./server.js"),
+        CONTENT_DIR = "src/server/content",
         port = process.argv[2];
-    server.start("src/server/content/homepage.html", "src/server/content/404.html", port, function () {
+    server.start(CONTENT_DIR + "/homepage.html", CONTENT_DIR + "/404.html", port, function () {
         process.stdout.write("Server started");
     });
 }());

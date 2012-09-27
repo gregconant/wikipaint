@@ -52,7 +52,12 @@
     };
 
     function runServer(doneCallback) {
-        child = child_process.spawn("foreman", ["start"]);
+        var commandLine = parseProcFile();
+        console.log("command line: " + commandLine);
+        console.log("command line[0]: " + commandLine[0]);
+        console.log("command line[1]: " + commandLine[1]);
+
+        child = child_process.spawn(commandLine[0], commandLine[1]);
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
             if (chunk.trim() === "Server started") {
@@ -60,6 +65,10 @@
             }
 
         });
+    }
+
+    function parseProcFile() {
+        return ["node", "src/server/wikipaint.js " + PORT_NUM];
     }
 
     function httpGet(url, callback) {

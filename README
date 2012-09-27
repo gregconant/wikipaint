@@ -100,7 +100,9 @@ episode 28: Which Host?
 - working on deploying the site to somewhere real
 - deploying to heroku
     - uses 'foreman' to run the app in the same way heroku would
-    - Foreman starts all the processes you need to run your app
+    - Foreman starts all the processes you need to run your app so you
+        can run locally as though you had heroku running, and we can test
+        our heroku deployment procfile
     - in smoke_test file, instead of running Node, run Foreman
     - Foreman needs a procfile that lists the process types in the app
         - https://devcenter.heroku.com/articles/nodejs#declare-process-types-with-procfile
@@ -110,6 +112,11 @@ episode 28: Which Host?
         - run "foreman start" and then browse to localhost:5000 and you'll see the app running
         - the output of Foreman is different from the usual node responses,
           so tests probably have to change
+
+episode 29: I don't wanna use Foreman
+- hard to get output of the foreman process to verify that it works and the
+  procfile is correct. and the way to get it to work doesn't work on Windows.
+  so we're going to parse the procfile and test that instead.
 
 to build:
     - run ./jake.sh

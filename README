@@ -117,6 +117,7 @@ episode 29: I don't wanna use Foreman
 - hard to get output of the foreman process to verify that it works and the
   procfile is correct. and the way to get it to work doesn't work on Windows.
   so we're going to parse the procfile and test that instead.
+- at 10:00 through episode 29
 
 to build:
     - run ./jake.sh

@@ -44,6 +44,7 @@
     // TODO: factor out common server name
     exports.test_canGetHomePage = function (test) {
         httpGet("http://localhost:" + PORT_NUM, function (response, receivedData) {
+            console.log("got home page!");
             var foundHomePage = (receivedData.indexOf("Welcome to WikiPaint!") !== -1);
             test.ok(foundHomePage, "home page should have contained 'Welcome to WikiPaint!'.");
             test.done();
@@ -52,6 +53,7 @@
 
     exports.test_canGet404Page = function (test) {
         httpGet("http://localhost:" + PORT_NUM + "/somepage", function (response, receivedData) {
+            console.log("got 404 page!");
             var foundHomePage = (receivedData.indexOf("404") !== -1);
             test.ok(foundHomePage, "404 page should have contained '404'.");
             test.done();
@@ -60,14 +62,15 @@
 
     function runServer(doneCallback) {
         var commandLine = parseProcFile();
-        console.log("command line: " + commandLine);
-        console.log("command line[0]: " + commandLine[0]);
-        console.log("command line[1]: " + commandLine[1]);
-        console.log("command line[2]: " + commandLine[2]);
+//        console.log("command line: " + commandLine);
+//        console.log("command line[0]: " + commandLine[0]);
+//        console.log("command line[1]: " + commandLine[1]);
+//        console.log("command line[2]: " + commandLine[2]);
 
         console.log("starting process");
-        child = child_process.spawn(commandLine[0], commandLine[1], commandLine[2]);
-
+        //child = child_process.spawn(commandLine[0], commandLine[1], commandLine[2]);
+        child = child_process.spawn("node", ["src/server/wikipaint.js", PORT_NUM]);
+        console.log("started process");
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
             if (chunk.trim() === "Server started") {
@@ -75,7 +78,7 @@
             }
 
         });
-        console.log("started process");
+
     }
 
     function parseProcFile() {
@@ -85,7 +88,7 @@
         console.log(procFile);
         matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
 
-        console.log("Matches: " + matches.join(", "));
+        //console.log("Matches: " + matches.join(", "));
         //return procFile;
         return ["node", "src/server/wikipaint.js", "8081"];
     }

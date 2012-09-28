@@ -10,6 +10,7 @@
             throw "port number is required";
         }
         server = http.createServer();
+        console.log("SERVER STARTED");
         server.on("request", function (request, response) {
             if (request.url === "/" || request.url === "/index.html") {
                 console.log("got request for " + request.url);

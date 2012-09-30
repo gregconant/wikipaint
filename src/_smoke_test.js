@@ -66,10 +66,8 @@
 //        console.log("command line[1]: " + commandLine[1]);
 //        console.log("command line[2]: " + commandLine[2]);
 
-        console.log("starting process");
         child = child_process.spawn(commandLine.command, commandLine.options);
 
-        console.log("started process");
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
             if (chunk.trim() === "Server started") {

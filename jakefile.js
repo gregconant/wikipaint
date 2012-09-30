@@ -100,6 +100,13 @@
             );
     }, {async: true});
 
+    desc("Deploy to Heroku");
+    task("deploy", ["default"], function () {
+       console.log("1. make sure 'git status' is clean");
+       console.log("2. git push heroku master");
+       console.log("3. run 'jake releasetest'");
+    });
+
     desc("Integrate");
     task("integrate", ["default"], function () {
         console.log("1. these are the steps to integrate");

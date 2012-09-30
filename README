@@ -126,6 +126,9 @@ episode 31: deploying to heroku
 
 episode 32: to the web!
 - deployed to http://mighty-hollows-6403.herokuapp.com
+- wrote test to make sure site is up and running
+- still lots of duplication in code (httpGet function all over)
+- deployment not automated
 
 
 

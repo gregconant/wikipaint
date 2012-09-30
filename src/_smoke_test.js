@@ -76,9 +76,7 @@
             if (chunk.trim() === "Server started") {
                 doneCallback();
             }
-
         });
-
     }
 
     function parseProcFile() {
@@ -89,24 +87,30 @@
 
         console.log(procFile);
         //matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
-        matches = procFile.trim().match(/^web:(\S*)([\S*\s*]*)/);
+        matches = procFile.trim().match(/^web:([\S*\s*]*)/);
 
         if (!matches) {
             console.log("No matches");
             throw "Could not parse procfile";
         }
-
         commandLine = matches[1];
         console.log("commandLine:" + commandLine);
 
         args = commandLine.split(" ");
-        console.log("split: " + args);
+        console.log("before: " + args);
         args = args.filter(function (element) {
             return element.trim() !== "";
         });
-        console.log("split: " + args);
+        args = args.map(function (element) {
+            if (element === "$PORT") {
+                return "5000";
+            } else {
+                return element;
+            }
+        });
+        console.log("after: " + args);
         //return ["node", "src/server/wikipaint.js", "8081"];
-        return parsedCommandLine;
+        return args;
     }
 
     function httpGet(url, callback) {

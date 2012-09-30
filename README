@@ -119,5 +119,8 @@ episode 29: I don't wanna use Foreman
   so we're going to parse the procfile and test that instead.
 - at 10:00 through episode 29
 
+episode 30: Parse the procfile
+
+
 to build:
     - run ./jake.sh

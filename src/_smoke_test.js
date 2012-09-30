@@ -83,14 +83,27 @@
 
     function parseProcFile() {
         var procFile = fs.readFileSync("Procfile", "UTF8"),
-            matches = "";
+            matches = "",
+            commandLine,
+            parsedCommandLine;
 
         console.log(procFile);
-        matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
+        //matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
+        matches = procFile.trim().match(/^web:(\S*)([\S*\s*]*)/);
 
-        //console.log("Matches: " + matches.join(", "));
-        //return procFile;
-        return ["node", "src/server/wikipaint.js", "8081"];
+        if (!matches) {
+            console.log("No matches");
+            throw "Could not parse procfile";
+        }
+
+        commandLine = matches[1];
+        console.log("commandLine:" + commandLine);
+
+        parsedCommandLine = commandLine.split(" ");
+        console.log("split: " + parsedCommandLine);
+
+        //return ["node", "src/server/wikipaint.js", "8081"];
+        return parsedCommandLine;
     }
 
     function httpGet(url, callback) {

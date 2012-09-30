@@ -124,6 +124,10 @@ episode 30: Parse the procfile
 episode 31: deploying to heroku
 - need a package.json file to be able for Heroku to know it's a node app
 
+episode 32: to the web!
+- deployed to http://mighty-hollows-6403.herokuapp.com
+
+
 
 to build:
     - run ./jake.sh

@@ -18,7 +18,8 @@
         http = require("http"),
         PORT_NUM = "5000",
         fs = require("fs"),
-        child;
+        child,
+        procfile = require("procfile");
 
 //    exports.setUp = function (done) {
 //        runServer(done);
@@ -30,10 +31,8 @@
 
     exports.tearDown = function (done) {
         if (!child) {
-            console.log("Child is null");
             return;
         } else {
-            console.log("Child is NOT null");
             child.on("exit", function (code, signal) {
                 done();
             });
@@ -68,8 +67,8 @@
 //        console.log("command line[2]: " + commandLine[2]);
 
         console.log("starting process");
-        //child = child_process.spawn(commandLine[0], commandLine[1], commandLine[2]);
-        child = child_process.spawn("node", ["src/server/wikipaint.js", PORT_NUM]);
+        child = child_process.spawn(commandLine.command, commandLine.options);
+
         console.log("started process");
         child.stdout.setEncoding("utf8");
         child.stdout.on("data", function (chunk) {
@@ -80,37 +79,19 @@
     }
 
     function parseProcFile() {
-        var procFile = fs.readFileSync("Procfile", "UTF8"),
-            matches = "",
-            commandLine,
-            args;
 
-        console.log(procFile);
-        //matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
-        matches = procFile.trim().match(/^web:([\S*\s*]*)/);
+        var fileData = fs.readFileSync("Procfile", "utf8"),
+            webCommand = procfile.parse(fileData).web;
 
-        if (!matches) {
-            console.log("No matches");
-            throw "Could not parse procfile";
-        }
-        commandLine = matches[1];
-        console.log("commandLine:" + commandLine);
-
-        args = commandLine.split(" ");
-        console.log("before: " + args);
-        args = args.filter(function (element) {
-            return element.trim() !== "";
-        });
-        args = args.map(function (element) {
+        webCommand.options = webCommand.options.map(function (element) {
             if (element === "$PORT") {
                 return "5000";
             } else {
                 return element;
             }
         });
-        console.log("after: " + args);
-        //return ["node", "src/server/wikipaint.js", "8081"];
-        return args;
+//        console.log(webCommand);
+        return webCommand;
     }
 
     function httpGet(url, callback) {

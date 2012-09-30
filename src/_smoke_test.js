@@ -85,7 +85,7 @@
         var procFile = fs.readFileSync("Procfile", "UTF8"),
             matches = "",
             commandLine,
-            parsedCommandLine;
+            args;
 
         console.log(procFile);
         //matches = procFile.match(/^web:(\S)?(\S+\s+)?/); // matches 'web: one two three'
@@ -99,9 +99,12 @@
         commandLine = matches[1];
         console.log("commandLine:" + commandLine);
 
-        parsedCommandLine = commandLine.split(" ");
-        console.log("split: " + parsedCommandLine);
-
+        args = commandLine.split(" ");
+        console.log("split: " + args);
+        args = args.filter(function (element) {
+            return element.trim() !== "";
+        });
+        console.log("split: " + args);
         //return ["node", "src/server/wikipaint.js", "8081"];
         return parsedCommandLine;
     }

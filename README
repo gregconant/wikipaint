@@ -121,6 +121,9 @@ episode 29: I don't wanna use Foreman
 
 episode 30: Parse the procfile
 
+episode 31: deploying to heroku
+- need a package.json file to be able for Heroku to know it's a node app
+
 
 to build:
     - run ./jake.sh

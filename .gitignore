@@ -1,1 +1,3 @@
 .idea/workspace.xml
+generated/
+/node_modules/testacular/node_modules/socket.io/node_modules/socket.io-client/node_modules/ws/build

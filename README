@@ -130,7 +130,13 @@ episode 32: to the web!
 - still lots of duplication in code (httpGet function all over)
 - deployment not automated
 
-
+episode 33: A Client-Side Test Tool
+- want to have the first story be a single-user drawing app and then expand to multi-user later
+- set up client-side testing
+- test drawing tool (Raphael?)
+- integrate into HTML page
+- JS Test Driver?
+- Testacular?
 
 to build:
     - run ./jake.sh

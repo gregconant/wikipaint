@@ -89,6 +89,7 @@
 
         javascriptFiles.include("**/_*_test.js");
         javascriptFiles.exclude("node_modules");
+        javascriptFiles.exclude("/src/client/**");
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(javascriptFiles.toArray(), null, function (failures) {
@@ -99,13 +100,6 @@
         }
             );
     }, {async: true});
-
-    desc("Deploy to Heroku");
-    task("deploy", ["default"], function () {
-       console.log("1. make sure 'git status' is clean");
-       console.log("2. git push heroku master");
-       console.log("3. run 'jake releasetest'");
-    });
 
     desc("Integrate");
     task("integrate", ["default"], function () {

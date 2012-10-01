@@ -139,5 +139,26 @@ episode 33: A Client-Side Test Tool
 - Testacular?
 - start with testacular
 
+episode 34: Cross-browser and cross-platform
+- using Testacular to run tests using Mocha (testacular init)
+- must check that we're testing against all browsers
+- remove src/client/_*_test.js files from jakefile lists of tests
+- run 'testacular start' to start. this means this browser is ready to run tests on the
+  server port declared in testacular.conf.js
+- need to install mocha ('npm install mocha') and chai (chaijs.com)  as an assertion framework
+- to run, need to do "testacular start" and then "testacular run"
+- these tests all run just like th eserver tests, but they're running in the browser!
+- to get these tests to run in multiple browsers, we can open the testacular server in each of them
+  and then re-run "testacular run".
+- if you run these tests while looking at the browser, you'll see the browser output status
+  of all the tests: for example,
+      "
+      IE 9.0 is idle
+      IE 8.0 is idle
+      Chrome 22.0 is idle
+      Firefox 15.0 is idle"
+  then you see, in the console, all the tests' output/assertions for all relevant browsers
+- tests don't run on IE7 or IE8.
+
 to build:
     - run ./jake.sh

@@ -137,6 +137,7 @@ episode 33: A Client-Side Test Tool
 - integrate into HTML page
 - JS Test Driver?
 - Testacular?
+- start with testacular
 
 to build:
     - run ./jake.sh

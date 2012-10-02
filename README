@@ -160,5 +160,11 @@ episode 34: Cross-browser and cross-platform
   then you see, in the console, all the tests' output/assertions for all relevant browsers
 - tests don't run on IE7 or IE8.
 
+episode 35: IE Hate
+- probably can't use Chai as assertion framework under Mocha. Going to try should.js
+- later: can't use Should.js either. try Expect.js?
+- after trying to get Expect working, it's hard to tell whether it's the right Expect.
+- More next episode.
+
 to build:
     - run ./jake.sh

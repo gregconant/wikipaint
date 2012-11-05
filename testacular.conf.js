@@ -10,7 +10,7 @@ basePath = '.';
 files = [
     MOCHA,
     MOCHA_ADAPTER,
-    "node_modules/expect/expect.js",
+    "node_modules/expect.js/expect.js",
     "src/client/_*_test.js"
 ];
 

@@ -166,5 +166,9 @@ episode 35: IE Hate
 - after trying to get Expect working, it's hard to tell whether it's the right Expect.
 - More next episode.
 
+episode 36: great expectations
+- "Expect" installed before was not the right expect. need to install "Expect.js".
+- will use a BDD style on client testing.
+
 to build:
     - run ./jake.sh

@@ -76,8 +76,8 @@
             files = new jake.FileList(),
             options = nodeLintOptions();
 
-        files.include("**/*.js");
-        files.exclude("node_modules");
+        files.include("./**/*.js");
+        files.exclude("./node_modules");
 
         lint.validateFileList(files.toArray(), options, {});
     });
@@ -88,8 +88,8 @@
         var javascriptFiles = new jake.FileList();
 
         javascriptFiles.include("**/_*_test.js");
-        javascriptFiles.exclude("node_modules");
-        javascriptFiles.exclude("/src/client/**");
+        javascriptFiles.exclude("./node_modules");
+        javascriptFiles.exclude("./src/client/**");
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(javascriptFiles.toArray(), null, function (failures) {

@@ -1,7 +1,7 @@
 (function () {
     "use strict";
 
-    var PORT = "8081",
+    var PORT = "5020",
         server = require("./server.js"),
         http = require("http"),
         fs = require("fs"),

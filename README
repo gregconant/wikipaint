@@ -169,6 +169,8 @@ episode 35: IE Hate
 episode 36: great expectations
 - "Expect" installed before was not the right expect. need to install "Expect.js".
 - will use a BDD style on client testing.
+- need to set up client-side linting options
+- next: run testacular from jakefile
 
 to build:
     - run ./jake.sh

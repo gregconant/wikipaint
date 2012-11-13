@@ -1,4 +1,4 @@
-/*global desc, task, jake, fail, complete */
+/*global desc, describe, task, jake, fail, complete */
 (function () {
     "use strict";
 
@@ -78,13 +78,16 @@
 
         files.include("./**/*.js");
         files.exclude("./node_modules");
+        files.exclude("./src/client/**");
 
         lint.validateFileList(files.toArray(), options, {});
     });
 
-
     desc("Test everything");
-    task("test", ["nodeVersion", TEMP_TESTFILE_DIR], function () {
+    task("test", ["testServer", "testClient"]);
+
+    desc("Test server code");
+    task("testServer", ["nodeVersion", TEMP_TESTFILE_DIR], function () {
         var javascriptFiles = new jake.FileList();
 
         javascriptFiles.include("**/_*_test.js");
@@ -100,6 +103,11 @@
         }
             );
     }, {async: true});
+
+    desc("Test client code");
+    task("testClient", function () {
+        console.log("CLIENT CODE HERE!");
+    });
 
     desc("Integrate");
     task("integrate", ["default"], function () {

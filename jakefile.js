@@ -74,7 +74,7 @@
 
     desc("Lint everything");
     task("lint", ["nodeVersion"], function () {
-        var lint = require("build/lint/lint_runner.js"),
+        var lint = require("./build/lint/lint_runner.js"),
             passed,
             javascriptFiles = new jake.FileList(),
             options = nodeLintOptions(),

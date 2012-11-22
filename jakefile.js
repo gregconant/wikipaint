@@ -63,7 +63,9 @@
             undef: true,
             strict: true,
             trailing: true,
-            node: true
+            node: true,
+            indent: true,
+            plusplus: true
         };
     }
 
@@ -73,14 +75,18 @@
     desc("Lint everything");
     task("lint", ["nodeVersion"], function () {
         var lint = require("./build/lint/lint_runner.js"),
+            passed,
             files = new jake.FileList(),
-            options = nodeLintOptions();
+            options = nodeLintOptions(),
+            globals = { };
 
         files.include("./**/*.js");
         files.exclude("./node_modules");
-        files.exclude("./src/client/**");
 
-        lint.validateFileList(files.toArray(), options, {});
+        passed = lint.validateFileList(files.toArray(), options, globals);
+        if (!passed) {
+            fail("Lint failed");
+        }
     });
 
     desc("Test everything");

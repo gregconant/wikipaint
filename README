@@ -172,5 +172,8 @@ episode 36: great expectations
 - need to set up client-side linting options
 - next: run testacular from jakefile
 
+episode 37: just run jake
+
+
 to build:
     - run ./jake.sh

@@ -177,6 +177,8 @@ episode 37: just run jake
     - in one terminal session, run 'testacular.sh start'
     - open the server with whichever browsers, i.e.: http://localhost:8082
     - in another terminal, run "jake testClient"
+- next time: set up automated build so client code is linted differently, and make sure
+  all browsers are tested correctly on build.
 
 
 to build:

@@ -83,9 +83,10 @@
             options = nodeLintOptions(),
             globals = { };
 
-        javascriptFiles.include("./**/*.js");
-        javascriptFiles.exclude("./node_modules");
-        javascriptFiles.exclude("./testacular.conf.js");
+        javascriptFiles.include("**/*.js");
+        javascriptFiles.exclude("node_modules");
+        javascriptFiles.exclude("testacular.conf.js");
+        console.log(javascriptFiles.toArray());
 
         passed = lint.validateFileList(javascriptFiles.toArray(), options, globals);
         if (!passed) {

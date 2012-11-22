@@ -28,7 +28,13 @@ exports.validateFile = function (filename, options, globals) {
 exports.validateFileList = function (fileList, options, globals) {
     var pass = true;
     fileList.forEach(function (filename) {
-        pass = exports.validateFile(filename, options, globals) && pass;
+        var fileStats = fs.lstat(filename, function(err, stats) {
+            if (!(stats.isDirectory())) {
+                pass = exports.validateFile(filename, options, globals) && pass;
+            } else {
+            }
+
+        });
     });
     return pass;
 };

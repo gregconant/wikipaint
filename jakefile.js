@@ -81,8 +81,9 @@
             globals = { };
 
         javascriptFiles.include("./**/*.js");
-        javascriptFiles.exclude("node_modules");
-        javascriptFiles.exclude("testacular.conf.js");
+        javascriptFiles.exclude("./node_modules");
+        javascriptFiles.exclude("./testacular.conf.js");
+        //javascriptFiles.exclude("./src/client/_client_test.js");
 
         passed = lint.validateFileList(javascriptFiles.toArray(), options, globals);
         if (!passed) {

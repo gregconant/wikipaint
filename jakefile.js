@@ -77,26 +77,63 @@
     task("default", ["lint", "test"]);
 
     desc("Lint everything");
-    task("lint", ["nodeVersion"], function () {
+    task("lint", ["lintNode", "lintClient"]);
+
+    desc("Test everything");
+    task("test", ["testClient", "testNode"]);
+
+    function clientFiles() {
+        var javascriptFiles = new jake.FileList();
+        javascriptFiles.include("src/client/**/*.js");
+        return javascriptFiles.toArray();
+    }
+
+    function nodeFiles() {
+        var files = new jake.FileList();
+        files.include("**/*.js");
+        files.exclude("node_modules");
+        files.exclude("testacular.conf.js");
+        return files.toArray();
+    }
+
+    desc("Lint client");
+    task("lintClient", [], function () {
         var passed,
-            javascriptFiles = new jake.FileList(),
             options = nodeLintOptions(),
-            globals = { };
+            globals = { },
+            clientJs = clientFiles();
 
-        javascriptFiles.include("**/*.js");
-        javascriptFiles.exclude("node_modules");
-        javascriptFiles.exclude("testacular.conf.js");
-        console.log(javascriptFiles.toArray());
+        console.log("Linting client files...");
 
-        passed = lint.validateFileList(javascriptFiles.toArray(), options, globals);
+        console.log(clientJs);
+
+        passed = lint.validateFileList(clientJs, options, globals);
         if (!passed) {
-            fail("Lint failed");
+            fail("Client lint failed");
+        }
+    });
+
+    desc("Lint node");
+    task("lintNode", ["nodeVersion"], function () {
+        var passed,
+            options = nodeLintOptions(),
+            globals = { },
+            nodeJsFiles = nodeFiles();
+
+        console.log("Linting node files...");
+        console.log(nodeJsFiles);
+
+        passed = lint.validateFileList(nodeJsFiles, options, globals);
+        if (!passed) {
+            fail("Node lint failed");
         }
     });
 
     desc("Test server code");
-    task("testServer", ["nodeVersion", TEMP_TESTFILE_DIR], function () {
+    task("testNode", ["nodeVersion"], function () {
         var testFiles = new jake.FileList();
+
+        console.log("TESTING NODE FILES");
 
         testFiles.include("**/_*_test.js");
         testFiles.exclude("./node_modules");
@@ -120,11 +157,8 @@
             console.log("Done running testacular");
             console.log(stdout);
         }, "Client tests failed");
-
+        complete();
     }, {async: true});
-
-    desc("Test everything");
-    task("test", ["testClient", "testServer"]);
 
     desc("Deploy to Heroku");
     task("deploy", ["default"], function() {

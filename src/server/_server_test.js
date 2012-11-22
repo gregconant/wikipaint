@@ -1,13 +1,14 @@
 (function () {
     "use strict";
 
-    var PORT = "5020",
-        server = require("./server.js"),
+    var server = require("./server.js"),
         http = require("http"),
         fs = require("fs"),
         assert = require("assert"),
         TEST_HOME_PAGE = "generated/test/home.html",
-        TEST_404_PAGE = "generated/test/404.html";
+        TEST_404_PAGE = "generated/test/404.html",
+        PORT = "5020",
+        BASE_URL = "http://localhost:" + PORT;
 
     exports.tearDown = function (done) {
         cleanUpFile(TEST_HOME_PAGE);
@@ -19,7 +20,7 @@
         var expectedData = "This is a home page";
         fs.writeFileSync(TEST_HOME_PAGE, expectedData);
 
-        httpGet("http://localhost:" + PORT, function (response, responseData) {
+        httpGet(BASE_URL, function (response, responseData) {
             test.equals(200, response.statusCode, "status code");
             test.equals(expectedData, responseData, "response text");
             test.done();
@@ -30,7 +31,7 @@
         var expectedData = "This is a 404 page";
         fs.writeFileSync(TEST_404_PAGE, expectedData);
 
-        httpGet("http://localhost:" + PORT + "/bargle", function (response, responseData) {
+        httpGet(BASE_URL + "/bargle", function (response, responseData) {
             test.equals(404, response.statusCode, "status code");
             test.equals(expectedData, responseData, "404 text");
             test.done();
@@ -40,7 +41,7 @@
     exports.test_returnsHomePageWhenAskedForIndex = function (test) {
         fs.writeFileSync(TEST_HOME_PAGE, "test test");
 
-        httpGet("http://localhost:" + PORT + "/index.html", function (response, responseData) {
+        httpGet(BASE_URL + "/index.html", function (response, responseData) {
             test.equals(200, response.statusCode, "status code");
             test.done();
         });

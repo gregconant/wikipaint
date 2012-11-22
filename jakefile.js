@@ -1,17 +1,16 @@
-/*global desc, describe, task, jake, fail, complete*/
+/*global desc, describe, task, jake, fail, complete, directory*/
 
 (function () {
     "use strict";
 
-    var NODE_VERSION = "v0.8.9",
+    var NODE_VERSION = "v0.8.10",
         GENERATED_DIR = "generated",
         TEMP_TESTFILE_DIR = GENERATED_DIR + "/test";
 
     directory(TEMP_TESTFILE_DIR);
 
-
     desc("Delete all generated files");
-    task("clean", function () {
+    task("clean", [], function () {
         jake.rmRf(GENERATED_DIR);
 
     });
@@ -75,16 +74,17 @@
 
     desc("Lint everything");
     task("lint", ["nodeVersion"], function () {
-        var lint = require("./build/lint/lint_runner.js"),
+        var lint = require("build/lint/lint_runner.js"),
             passed,
-            files = new jake.FileList(),
+            javascriptFiles = new jake.FileList(),
             options = nodeLintOptions(),
             globals = { };
 
-        files.include("./**/*.js");
-        files.exclude("./node_modules");
+        javascriptFiles.include("./**/*.js");
+        javascriptFiles.exclude("node_modules");
+        javascriptFiles.exclude("testacular.conf.js");
 
-        passed = lint.validateFileList(files.toArray(), options, globals);
+        passed = lint.validateFileList(javascriptFiles.toArray(), options, globals);
         if (!passed) {
             fail("Lint failed");
         }
@@ -95,13 +95,14 @@
 
     desc("Test server code");
     task("testServer", ["nodeVersion", TEMP_TESTFILE_DIR], function () {
-        var javascriptFiles = new jake.FileList();
+        var testFiles = new jake.FileList();
 
-        javascriptFiles.include("**/_*_test.js");
-        javascriptFiles.exclude("./node_modules");
+        testFiles.include("**/_*_test.js");
+        testFiles.exclude("node_modules");
+        testFiles.exclude("src/client/**");
 
         var reporter = require("nodeunit").reporters["default"];
-        reporter.run(javascriptFiles.toArray(), null, function (failures) {
+        reporter.run(testFiles.toArray(), null, function (failures) {
             if (failures) {
                 fail("Tests failed");
             }
@@ -113,15 +114,17 @@
     desc("Test client code");
     task("testClient", function () {
         var config = {};
-        sh("testacular.sh run", function () {
+        sh("testacular.sh run", "Client tests failed", function () {
             console.log("AFTER TESTS");
         });
 
     }, {async: true});
 
-    desc("Integrate");
-    task("integrate", ["default"], function () {
-        console.log("1. these are the steps to integrate");
+    desc("Deploy to Heroku");
+    task("deploy", ["default"], function() {
+        console.log("1. Make sure 'git status' is clean.");
+        console.log("2. 'git push heroku master'");
+        console.log("3. 'jake test'");
     });
 
 //	desc("Ensure correct version of Node is present. Use 'strict=true' to require exact match");
@@ -129,12 +132,11 @@
         var expectedString = NODE_VERSION,
             actualString = process.version,
             expected = parseNodeVersion("expected Node version", expectedString),
-            actual = parseNodeVersion("Node version", actualString);
-
-        function failWithQualifier(qualifier) {
-            fail("Incorrect node version. Expected " + qualifier +
-                     " [" + expectedString + "], but was [" + actualString + "].");
-        }
+            actual = parseNodeVersion("Node version", actualString),
+            failWithQualifier = function(qualifier) {
+                fail("Incorrect node version. Expected " + qualifier +
+                    " [" + expectedString + "], but was [" + actualString + "].");
+            };
 
         if (process.env.strict) {
             if (actual[0] !== expected[0] || actual[1] !== expected[1] || actual[2] !== expected[2]) {
@@ -153,6 +155,11 @@
         }
         console.log("Node version '" + actualString + "' is at least expected version of '" + expectedString + "'");
 
+    });
+
+    desc("Integrate");
+    task("integrate", ["default"], function () {
+        console.log("1. these are the steps to integrate");
     });
 
 }());

@@ -51,7 +51,7 @@
         process.run();
     }
 
-    function nodeLintOptions() {
+    function globalLintOptions() {
         return {
             bitwise: true,
             curly: false,
@@ -67,10 +67,21 @@
             undef: true,
             strict: true,
             trailing: true,
-            node: true,
             indent: true,
             plusplus: true
         };
+    }
+
+    function browserLintOptions() {
+        var opts = globalLintOptions();
+        opts.browser = true;
+        return opts;
+    }
+
+    function nodeLintOptions() {
+        var opts = globalLintOptions();
+        opts.node = true;
+        return opts;
     }
 
     desc("Build and test");
@@ -99,15 +110,11 @@
     desc("Lint client");
     task("lintClient", [], function () {
         var passed,
-            options = nodeLintOptions(),
-            globals = { },
             clientJs = clientFiles();
 
         console.log("Linting client files...");
-
         console.log(clientJs);
-
-        passed = lint.validateFileList(clientJs, options, globals);
+        passed = lint.validateFileList(clientJs, browserLintOptions(), { });
         if (!passed) {
             fail("Client lint failed");
         }

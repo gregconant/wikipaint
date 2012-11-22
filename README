@@ -173,6 +173,10 @@ episode 36: great expectations
 - next: run testacular from jakefile
 
 episode 37: just run jake
+- remember, to run Testacular:
+    - in one terminal session, run 'testacular.sh start'
+    - open the server with whichever browsers, i.e.: http://localhost:8082
+    - in another terminal, run "jake testClient"
 
 
 to build:

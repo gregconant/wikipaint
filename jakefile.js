@@ -1,4 +1,5 @@
-/*global desc, describe, task, jake, fail, complete */
+/*global desc, describe, task, jake, fail, complete*/
+
 (function () {
     "use strict";
 
@@ -98,7 +99,6 @@
 
         javascriptFiles.include("**/_*_test.js");
         javascriptFiles.exclude("./node_modules");
-        javascriptFiles.exclude("./src/client/**");
 
         var reporter = require("nodeunit").reporters["default"];
         reporter.run(javascriptFiles.toArray(), null, function (failures) {
@@ -112,8 +112,12 @@
 
     desc("Test client code");
     task("testClient", function () {
-        console.log("CLIENT CODE HERE!");
-    });
+        var config = {};
+        sh("testacular.sh run", function () {
+            console.log("AFTER TESTS");
+        });
+
+    }, {async: true});
 
     desc("Integrate");
     task("integrate", ["default"], function () {

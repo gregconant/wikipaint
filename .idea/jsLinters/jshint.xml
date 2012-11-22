@@ -11,10 +11,7 @@
     <option strict="true" />
     <option undef="true" />
     <option browser="true" />
-    <option jquery="true" />
-    <option node="true" />
     <option maxerr="50" />
-    <option predef="describe,it,expect" />
   </component>
 </project>
 

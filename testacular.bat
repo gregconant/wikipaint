@@ -1,1 +1,1 @@
-node_modules\\testacular\\bin\\testacular $*
+node_modules/testacular/bin/testacular $*

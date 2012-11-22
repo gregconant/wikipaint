@@ -7,7 +7,7 @@
     describe("Nothing", function () {
 
         it("should run", function () {
-            expect("foo").to.equal("bar");
+            expect("test").to.equal("test");
         });
 
     });

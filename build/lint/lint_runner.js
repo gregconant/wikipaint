@@ -31,9 +31,7 @@ exports.validateFileList = function (fileList, options, globals) {
         var fileStats = fs.lstat(filename, function(err, stats) {
             if (!(stats.isDirectory())) {
                 pass = exports.validateFile(filename, options, globals) && pass;
-            } else {
             }
-
         });
     });
     return pass;

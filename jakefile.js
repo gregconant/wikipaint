@@ -38,13 +38,13 @@
 
         process = jake.createExec(command, { printStdout: true, printStderr: true });
 
-        process.on("stdout", function (chunk) {
+        process.addListener("stdout", function (chunk) {
             stdout += chunk;
         });
-        process.on("error", function () {
-            fail(errorMessage);
+        process.addListener("error", function (msg, code) {
+            fail("error code " + code + ": " + msg);
         });
-        process.on("cmdEnd", function () {
+        process.addListener("cmdEnd", function () {
             // remove whitespace from end of string returned so comparison will work
             onCommandEnd(stdout);
         });
@@ -116,7 +116,10 @@
     desc("Test client code");
     task("testClient", function () {
         console.log("TESTING CLIENT");
-        sh("testacular.bat run", "Client tests failed", complete);
+        sh("run-testacular.bat", function (stdout) {
+            console.log("Done running testacular");
+            console.log(stdout);
+        }, "Client tests failed");
 
     }, {async: true});
 

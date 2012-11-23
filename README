@@ -181,8 +181,8 @@ episode 37: just run jake
   all browsers are tested correctly on build.
 
 episode 38: lint the client code
-- at 8:31 in the video
-
+- lots of refactoring of jakefile
+- set up placeholder for where we'll put the client assertions (making sure each browser is tested)
 
 to build:
     - run ./jake.sh

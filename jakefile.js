@@ -6,7 +6,8 @@
     var NODE_VERSION = "v0.8.10",
         GENERATED_DIR = "generated",
         TEMP_TESTFILE_DIR = GENERATED_DIR + "/test",
-        lint = require("./build/lint/lint_runner.js");
+        lint = require("./build/lint/lint_runner.js"),
+        nodeUnit = require("nodeunit").reporters["default"];
 
     directory(TEMP_TESTFILE_DIR);
 
@@ -99,14 +100,6 @@
         return javascriptFiles.toArray();
     }
 
-    function nodeFiles() {
-        var files = new jake.FileList();
-        files.include("**/*.js");
-        files.exclude("node_modules");
-        files.exclude("testacular.conf.js");
-        return files.toArray();
-    }
-
     desc("Lint client");
     task("lintClient", [], function () {
         var passed,
@@ -119,6 +112,38 @@
             fail("Client lint failed");
         }
     });
+
+    function assertBrowserIsTested(browserName, output) {
+        fail(browserName + " was not tested!");
+    }
+
+    desc("Test client code");
+    task("testClient", function () {
+        console.log("TESTING CLIENT");
+        sh("run-testacular.bat", function (output) {
+            assertBrowserIsTested("IE 9.0", output);
+            console.log("Done running testacular");
+            console.log(output);
+        }, "Client tests failed");
+        complete();
+    }, {async: true});
+
+    function nodeFiles() {
+        var files = new jake.FileList();
+        files.include("**/*.js");
+        files.exclude("node_modules");
+        files.exclude("testacular.conf.js");
+        files.exclude("src\\client");
+        return files.toArray();
+    }
+
+    function nodeTestFiles() {
+        var testFiles = new jake.FileList();
+        testFiles.include("**/_*_test.js");
+        testFiles.exclude("./node_modules");
+        testFiles.exclude("src\\client");
+        return testFiles.toArray();
+    }
 
     desc("Lint node");
     task("lintNode", ["nodeVersion"], function () {
@@ -138,33 +163,18 @@
 
     desc("Test server code");
     task("testNode", ["nodeVersion"], function () {
-        var testFiles = new jake.FileList();
+        var testFiles = nodeTestFiles();
 
         console.log("TESTING NODE FILES");
 
-        testFiles.include("**/_*_test.js");
-        testFiles.exclude("./node_modules");
-        testFiles.exclude("src\\client\\_client_test.js");
-
-        var reporter = require("nodeunit").reporters["default"];
-        console.log("files: " + testFiles.toArray());
-        reporter.run(testFiles.toArray(), null, function (failures) {
+        console.log("files: [" + testFiles + "]");
+        nodeUnit.run(testFiles, null, function (failures) {
             if (failures) {
                 fail("Tests failed");
             }
             complete();
         }
             );
-    }, {async: true});
-
-    desc("Test client code");
-    task("testClient", function () {
-        console.log("TESTING CLIENT");
-        sh("run-testacular.bat", function (stdout) {
-            console.log("Done running testacular");
-            console.log(stdout);
-        }, "Client tests failed");
-        complete();
     }, {async: true});
 
     desc("Deploy to Heroku");

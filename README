@@ -188,7 +188,7 @@ episode 38: lint the client code
 episode 39: Test ALL the Things
 - want to add warnings to  if all the browsers we chose to test with aren't running, we get an error.
 - look at output of tests and make sure each browser is in it.
-- at 8:00 into video
+- moved testacular.conf.js to build directory, changed its base path to point to its parent
 
 to build:
     - run ./jake.sh

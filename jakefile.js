@@ -93,11 +93,17 @@
     desc("Build and test");
     task("default", ["lint", "test"]);
 
+    desc("Start testacular server for testing");
+    task("testacular", function () {
+        sh("start-testacular.bat", complete, "could not start Testacular server");
+
+    }, { async: true });
+
     desc("Lint everything");
     task("lint", ["lintNode", "lintClient"]);
 
     desc("Test everything");
-    task("test", ["testClient", "testNode"]);
+    task("test", ["testNode", "testClient"]);
 
     function clientFiles() {
         var javascriptFiles = new jake.FileList();
@@ -138,6 +144,9 @@
                 assertBrowserIsTested(browser, output);
             });
             console.log("Done running testacular");
+            if(output.indexOf("TOTAL: 0 SUCCESS") !== -1) {
+                fail("Client tests did not run!");
+            }
             console.log(output);
         }, "Client tests failed");
         complete();
@@ -187,9 +196,10 @@
             if (failures) {
                 fail("Tests failed");
             }
-            complete();
-        }
-            );
+
+        });
+        complete();
+
     }, {async: true});
 
     desc("Deploy to Heroku");

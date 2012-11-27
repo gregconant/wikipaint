@@ -7,7 +7,12 @@
         GENERATED_DIR = "generated",
         TEMP_TESTFILE_DIR = GENERATED_DIR + "/test",
         lint = require("./build/lint/lint_runner.js"),
-        nodeUnit = require("nodeunit").reporters["default"];
+        nodeUnit = require("nodeunit").reporters["default"],
+        SUPPORTED_BROWSERS = [
+            "IE 9.0",
+            "Chrome 23.0",
+            "Firefox 16.0"
+        ];
 
     directory(TEMP_TESTFILE_DIR);
 
@@ -114,14 +119,24 @@
     });
 
     function assertBrowserIsTested(browserName, output) {
-        fail(browserName + " was not tested!");
+        var searchString = browserName + ": Executed";
+
+        var passed = output.indexOf(searchString) !== -1;
+        if(passed) {
+            console.log(browserName + " was tested");
+        } else {
+            fail(browserName + " was not tested!");
+        }
     }
 
     desc("Test client code");
     task("testClient", function () {
         console.log("TESTING CLIENT");
         sh("run-testacular.bat", function (output) {
-            assertBrowserIsTested("IE 9.0", output);
+
+            SUPPORTED_BROWSERS.forEach(function (browser) {
+                assertBrowserIsTested(browser, output);
+            });
             console.log("Done running testacular");
             console.log(output);
         }, "Client tests failed");

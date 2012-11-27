@@ -184,5 +184,11 @@ episode 38: lint the client code
 - lots of refactoring of jakefile
 - set up placeholder for where we'll put the client assertions (making sure each browser is tested)
 
+
+episode 39: Test ALL the Things
+- want to add warnings to  if all the browsers we chose to test with aren't running, we get an error.
+- look at output of tests and make sure each browser is in it.
+- at 8:00 into video
+
 to build:
     - run ./jake.sh

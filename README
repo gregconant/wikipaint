@@ -196,6 +196,19 @@ episode 40: Windows Addendum
 - used testacular runner in node to run tests and redirected output to be able to capture it,
   instead of shelling out to run it.
 
+episode 41: Seeking the DOM
+- initial stories:
+    create drawing area
+    draw one line
+    draw a line in response to mouse
+    draw a line in response to iOS touch
+    draw multiple lines / follow the drag
+minify and deploy
+
+- make jake success more obvious
+- make test look at Testacular DOM
+
+
 
 to build:
     - run ./jake.sh

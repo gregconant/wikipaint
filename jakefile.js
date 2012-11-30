@@ -91,7 +91,9 @@
     }
 
     desc("Build and test");
-    task("default", ["lint", "test"]);
+    task("default", ["lint", "test"], function () {
+        console.log("\n\nOK");
+    });
 
     desc("Start testacular server for testing");
     task("testacular", function () {
@@ -150,11 +152,6 @@
             oldStdOut.apply(this, arguments);
         };
 
-//        sh("run-testacular.bat", function (output) {
-//
-
-
-//        }, "Client tests failed");
         require("testacular/lib/runner").run(config, function (exitCode) {
             process.stdout.write = oldStdOut;
             if (exitCode) {

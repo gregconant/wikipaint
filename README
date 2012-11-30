@@ -207,7 +207,13 @@ minify and deploy
 
 - make jake success more obvious
 - make test look at Testacular DOM
-
+- On Testacular window, there is an iframe with an id of "Context" that we can
+  probably use and assert against.
+- once browser windows are attached and we run testacular again, we see a lot of scripts loaded
+in the browser. our client test script is in one of these
+(named something like _client_test.js?<some-number>)
+- just want to insert elements into the Testacular DOM and assert that they exist.
+will pick up on this next time.
 
 
 to build:

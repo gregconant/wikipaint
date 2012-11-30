@@ -124,7 +124,7 @@
         }
     });
 
-    function assertBrowserIsTested(browserName, output) {
+    function checkIfBrowserTested(browserName, output) {
         var searchString = browserName + ": Executed";
 
         var passed = output.indexOf(searchString) !== -1;
@@ -138,17 +138,40 @@
     desc("Test client code");
     task("testClient", function () {
         console.log("TESTING CLIENT");
-        sh("run-testacular.bat", function (output) {
+        var browserMissing = false,
+            config = {},
+            oldStdOut = process.stdout.write,
+            output = "";
+            // we are going to override process.stdout.write function for now,
+            // because it is what testacular writes to, and we want to redirect its
+            // output
+        process.stdout.write = function(data) {
+            output += data;
+            oldStdOut.apply(this, arguments);
+        };
 
+//        sh("run-testacular.bat", function (output) {
+//
+
+
+//        }, "Client tests failed");
+        require("testacular/lib/runner").run(config, function (exitCode) {
+            process.stdout.write = oldStdOut;
+            if (exitCode) {
+                fail ("Client tests failed (to start server, run 'jake testacular')");
+            }
             SUPPORTED_BROWSERS.forEach(function (browser) {
-                assertBrowserIsTested(browser, output);
+                browserMissing = checkIfBrowserTested(browser, output) || browserMissing;
             });
+            if(browserMissing && !process.env.loose) {
+                fail("Did not test all supported browsers (use 'loose=true' to suppress this message.");
+            }
             console.log("Done running testacular");
             if(output.indexOf("TOTAL: 0 SUCCESS") !== -1) {
                 fail("Client tests did not run!");
             }
-            console.log(output);
-        }, "Client tests failed");
+            console.log("captured output: " + output);
+        });
         complete();
     }, {async: true});
 

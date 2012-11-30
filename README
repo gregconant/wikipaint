@@ -192,8 +192,9 @@ episode 39: Test ALL the Things
 
 episode 40: Windows Addendum
 - check browsers that are/are not running and report on them, but don't necessarily fail
-just because a browser isn't running (may not have same browsers on mac & windows)
-
+  just because a browser isn't running (may not have same browsers on mac & windows)
+- used testacular runner in node to run tests and redirected output to be able to capture it,
+  instead of shelling out to run it.
 
 
 to build:

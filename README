@@ -216,7 +216,11 @@ in the browser. our client test script is in one of these
 will pick up on this next time.
 
 episode 42: there's our tag
-
+- can find DOM elements in client tests
+- client file we added doesn't seem to be running
+    (EDIT: This is because it wasn't included in the testacular.conf list)
+- installed JQuery
+- get onLoad working (esp. on IE)
 
 to build:
     - run ./jake.sh

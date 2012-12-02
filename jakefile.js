@@ -178,6 +178,7 @@
         files.exclude("node_modules");
         files.exclude("testacular.conf.js");
         files.exclude("src\\client");
+        files.exclude("vendor_client");
         return files.toArray();
     }
 

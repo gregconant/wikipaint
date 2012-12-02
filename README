@@ -215,6 +215,8 @@ in the browser. our client test script is in one of these
 - just want to insert elements into the Testacular DOM and assert that they exist.
 will pick up on this next time.
 
+episode 42: there's our tag
+
 
 to build:
     - run ./jake.sh

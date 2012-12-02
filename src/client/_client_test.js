@@ -11,6 +11,8 @@
             div.setAttribute("foo", "bar");
             document.body.appendChild(div);
             dump("breakpoint here");
+            var foundDiv = document.getElementById("tdjs");
+            expect(foundDiv.getAttribute("foo")).to.equal("bar");
         });
 
     });

@@ -223,7 +223,7 @@ episode 42: there's our tag
 - get onLoad working (esp. on IE)
 
 episode 43: keep layout and program separate
-
+- got basic DOM test working. need to create actual drawing area.
 
 to build:
     - run ./jake.sh

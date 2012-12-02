@@ -1,7 +1,11 @@
-/*global desc, describe, task, jake, fail, complete, directory, console*/
+/*global desc, describe, task, jake, fail, complete, directory, console, process*/
 
 (function () {
     "use strict";
+
+    if(!process.env.loose) {
+        console.log("For more forgiving test settings, use 'loose=true'");
+    }
 
     var NODE_VERSION = "v0.8.10",
         GENERATED_DIR = "generated",
@@ -129,12 +133,11 @@
     function checkIfBrowserTested(browserName, output) {
         var searchString = browserName + ": Executed";
 
-        var passed = output.indexOf(searchString) !== -1;
-        if(passed) {
-            console.log(browserName + " was tested");
-        } else {
-            fail(browserName + " was not tested!");
+        var missing = output.indexOf(searchString) === -1;
+        if(missing) {
+            console.log(browserName + " was not tested!");
         }
+        return missing;
     }
 
     desc("Test client code");

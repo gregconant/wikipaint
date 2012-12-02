@@ -1,4 +1,4 @@
-/*global describe, it, expect, dump, window, $*/
+/*global describe, it, expect, dump, window, $, wikiPaint:true*/
 
 wikiPaint = {};
 

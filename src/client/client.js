@@ -1,6 +1,6 @@
 /*global describe, it, expect, dump, window, $*/
 
-var wikiPaint = {};
+wikiPaint = {};
 
 (function () {
    "use strict";

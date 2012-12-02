@@ -1,4 +1,4 @@
-/*global describe, it, expect, dump, require, wikiPaint*/
+/*global describe, it, expect, dump, require, wikiPaint:true*/
 
 (function () {
     "use strict";

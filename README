@@ -222,5 +222,8 @@ episode 42: there's our tag
 - installed JQuery
 - get onLoad working (esp. on IE)
 
+episode 43: keep layout and program separate
+
+
 to build:
     - run ./jake.sh

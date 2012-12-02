@@ -1,4 +1,4 @@
-/*global describe, it, expect, dump*/
+/*global describe, it, expect, dump, require*/
 
 (function () {
     "use strict";
@@ -6,14 +6,8 @@
     describe("Nothing", function () {
 
         it("should run", function () {
-            var div = document.createElement("div");
-            div.setAttribute("id", "tdjs");
-            div.setAttribute("foo", "bar");
-            document.body.appendChild(div);
-            dump("breakpoint here");
             var foundDiv = document.getElementById("tdjs");
             expect(foundDiv.getAttribute("foo")).to.equal("bar");
         });
-
     });
 }());

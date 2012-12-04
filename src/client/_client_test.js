@@ -1,4 +1,4 @@
-/*global describe, it, expect, dump, require, wikiPaint*/
+/*global describe, it, expect, dump, require, $, wikiPaint*/
 
 (function () {
     "use strict";
@@ -18,10 +18,9 @@
             wikiPaint.initializeDrawingArea(drawingAreaId);
 
             // verify div was initialized correctly
-            var foundDiv = document.getElementById("wikipaint-drawing-area");
-            expect(foundDiv.getAttribute("blah")).to.equal("bleah");
-
-            expect(foundDiv).to.be.ok();
+            var tagName = $(div).children()[0].tagName;
+            dump(tagName);
+            expect(tagName).to.equal("svg");
         });
     });
 }());

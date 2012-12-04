@@ -228,7 +228,9 @@ episode 43: keep layout and program separate
 episode 44: raphael
 - add raphael to project and draw something in a test-driven way.
 - tagName of raphael drawing area is DIV on IE, and SVG on all others.
-
+  Next Time:
+    - need to confirm Raphael works differently on IE 8 from all other browsers.
+    - Figure out exactly what Raphael is doing on IE8.
 
 to build:
     - run ./jake.sh

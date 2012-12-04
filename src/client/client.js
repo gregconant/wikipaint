@@ -1,11 +1,15 @@
-/*global describe, it, expect, dump, window, $, wikiPaint:true*/
+/*global describe, it, expect, dump, window, $, wikiPaint:true, Raphael*/
 
 wikiPaint = {};
 
 (function () {
    "use strict";
 
-    wikiPaint.initializeDrawingArea = function () {
+    var raphael = Raphael;
+
+    wikiPaint.initializeDrawingArea = function (drawingAreaId) {
+
+        var paper = raphael(drawingAreaId);
 
     };
 

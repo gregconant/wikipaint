@@ -225,5 +225,9 @@ episode 42: there's our tag
 episode 43: keep layout and program separate
 - got basic DOM test working. need to create actual drawing area.
 
+episode 44: raphael
+- add raphael to project and draw something in a test-driven way.
+
+
 to build:
     - run ./jake.sh

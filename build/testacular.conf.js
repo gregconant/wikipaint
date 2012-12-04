@@ -12,7 +12,8 @@ files = [
     MOCHA_ADAPTER,
     "node_modules/expect.js/expect.js",
     "src/client/*.js",
-    "vendor_client/jquery-1.8.3.js"
+    "vendor_client/jquery-1.8.3.js",
+    "vendor_client/raphael-2.1.0-min.js"
 ];
 
 

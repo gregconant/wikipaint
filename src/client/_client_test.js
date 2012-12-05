@@ -26,5 +26,9 @@
                 expect(tagName).to.equal("div");
             }
         });
+
+        it("should have the same dimensions as its enclosing div", function () {
+
+        });
     });
 }());

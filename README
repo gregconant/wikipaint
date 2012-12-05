@@ -238,7 +238,8 @@ episode 45: IE 8 Compatibility
                 <rvml:shape></rvml:shape>
             </div>
            </div>
-
+- update: this doesn't happen until you draw something in this space, so we can't verify
+  anything except that there is a div instad of an SVG element.
 
 
 to build:

@@ -241,6 +241,9 @@ episode 45: IE 8 Compatibility
 - update: this doesn't happen until you draw something in this space, so we can't verify
   anything except that there is a div instad of an SVG element.
 
+episode 46: clean up the DOM
+- running 2 tests in a row apparently doesn't clear out the DOM space after each test run.
+we should clear it ourselves after each test run.
 
 to build:
     - run ./jake.sh

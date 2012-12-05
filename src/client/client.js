@@ -2,15 +2,12 @@
 
 wikiPaint = {};
 
-
-
 (function () {
    "use strict";
 
     wikiPaint.initializeDrawingArea = function (drawingAreaId) {
-
-        var paper = new Raphael(drawingAreaId);
-
+        // returns Raphael paper object
+        return new Raphael(drawingAreaId);
     };
 
 }());

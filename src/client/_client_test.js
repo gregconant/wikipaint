@@ -19,8 +19,16 @@
 
             // verify div was initialized correctly
             var tagName = $(div).children()[0].tagName;
+            if (tagName === "svg") {
+                expect(tagName).to.equal("svg");
+
+            } else { // in IE
+                expect(tagName).to.equal("DIV");
+            }
+
+
             dump(tagName);
-            expect(tagName).to.equal("svg");
+
         });
     });
 }());

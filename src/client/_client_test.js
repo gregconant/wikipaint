@@ -36,7 +36,7 @@
 
         it("should have the same dimensions as its enclosing div", function () {
             // create div that's assumed to be in our home page
-            var testHtml = "<div style='height: 200px; width:400px;'>Hi, jerk.</div>",
+            var testHtml = "<div id='" + drawingAreaId + "' style='height: 200px; width:400px;'>Hi, jerk.</div>",
                 raphPaper;
 
             $("body").append(testHtml);
@@ -45,7 +45,6 @@
 
             expect(raphPaper.height).to.be(200);
             expect(raphPaper.width).to.be(400);
-
         });
     });
 }());

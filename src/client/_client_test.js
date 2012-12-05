@@ -18,17 +18,13 @@
             wikiPaint.initializeDrawingArea(drawingAreaId);
 
             // verify div was initialized correctly
-            var tagName = $(div).children()[0].tagName;
+            var tagName = $(div).children()[0].tagName.toLowerCase();
             if (tagName === "svg") {
                 expect(tagName).to.equal("svg");
 
             } else { // in IE
-                expect(tagName).to.equal("DIV");
+                expect(tagName).to.equal("div");
             }
-
-
-            dump(tagName);
-
         });
     });
 }());

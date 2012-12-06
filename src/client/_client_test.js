@@ -3,8 +3,9 @@
 (function () {
     "use strict";
 
-    var drawingAreaId = "wikipaint-drawing-area",
-        drawingArea;
+    var testDiv,
+        drawingArea,
+        raphPaper;
 
     describe("Drawing area", function () {
 
@@ -14,16 +15,15 @@
         });
 
         it("should be initialized in predefined div", function () {
-            var testHtml = $("<div></div>"),
-                somePaper;
+            testDiv = $("<div></div>");
 
-            $("body").append(testHtml);
+            $("body").append(testDiv);
 
             // initialize the div (production code)
-            somePaper = wikiPaint.initializeDrawingArea(testHtml[0]);
+            somePaper = wikiPaint.initializeDrawingArea(testDiv[0]);
 
             // verify div was initialized correctly
-            var tagName = testHtml.children()[0].tagName.toLowerCase();
+            var tagName = testDiv.children()[0].tagName.toLowerCase();
             if (tagName === "svg") {
                 expect(tagName).to.equal("svg");
 
@@ -33,12 +33,9 @@
         });
 
         it("should have the same dimensions as its enclosing div", function () {
-            var testHtml = "<div id='" + drawingAreaId + "' style='height: 300px; width:600px;'>Hi, jerk.</div>",
-                raphPaper;
+            testDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
 
-            drawingArea = $(testHtml);
-
-            $("body").append(drawingArea);
+            $("body").append(testDiv);
 
             raphPaper = wikiPaint.initializeDrawingArea(drawingArea[0]);
 

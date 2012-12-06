@@ -26,12 +26,15 @@
             tagName = drawingDiv.children()[0].tagName.toLowerCase();
             raphType = Raphael.type;
 
-            if (Raphael.type === "SVG") {
+            if (raphType === "SVG") {
                 expect(tagName).to.equal("svg");
 
-            } else { // in IE
+            } else if(raphType === "VML") { // in IE 8
                 expect(tagName).to.equal("div");
+            } else {
+                expect().fail("Browser does not support Raphael. Type: " + raphType);
             }
+
         });
 
         it("should have the same dimensions as its enclosing div", function () {

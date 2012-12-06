@@ -5,9 +5,9 @@ wikiPaint = {};
 (function () {
    "use strict";
 
-    wikiPaint.initializeDrawingArea = function (drawingAreaId) {
+    wikiPaint.initializeDrawingArea = function (drawingAreaElement) {
         // returns Raphael paper object
-        return new Raphael(drawingAreaId);
+        return new Raphael(drawingAreaElement);
     };
 
 }());

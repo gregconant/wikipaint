@@ -248,5 +248,9 @@ we should clear it ourselves after each test run.
 - need to get height and width of paper object created by Raphael so we can
   assert against them.
 
+episode 47: it's element-ary
+- apparently raphael has built-in properties to check for svg/vml support.
+ should try to use this instead of checking for svg/div tag.
+
 to build:
     - run ./jake.sh

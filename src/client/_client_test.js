@@ -32,9 +32,8 @@
             } else if(raphType === "VML") { // in IE 8
                 expect(tagName).to.equal("div");
             } else {
-                expect().fail("Browser does not support Raphael. Type: " + raphType);
+                throw new Error("Raphael does not support browser.");
             }
-
         });
 
         it("should have the same dimensions as its enclosing div", function () {

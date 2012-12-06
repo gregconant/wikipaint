@@ -252,6 +252,7 @@ episode 47: it's element-ary
 - apparently raphael has built-in properties to check for svg/vml support.
  should try to use this instead of checking for svg/div tag.
 - can get raphael type with Raphael.type (outputs VML or SVG)
+- next: somehow test/compensate for user actions.
 
 to build:
     - run ./jake.sh

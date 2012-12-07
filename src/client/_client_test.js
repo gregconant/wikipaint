@@ -46,5 +46,21 @@
             expect(raphPaper.height).to.be(300);
             expect(raphPaper.width).to.be(600);
         });
+
+        it("should draw a line", function () {
+            drawingDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+            $("body").append(drawingDiv);
+
+            var paper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
+
+            wikiPaint.drawLine(20, 30, 30, 300);
+            var totalElements = 0;
+            paper.forEach(function (element) {
+                totalElements += 1;
+            });
+
+            expect(totalElements).to.equal(1);
+
+        });
     });
 }());

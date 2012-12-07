@@ -14,4 +14,8 @@ wikiPaint = {};
         return paper;
     };
 
+    wikiPaint.drawLine = function(startX, startY, endX, endY) {
+
+    };
+
 }());

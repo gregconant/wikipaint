@@ -261,6 +261,11 @@ episode 48: test it for real
 First! want to modify home page for manual testing
   - spike drawing a line and review it manually
   - redo line-drawing code in a test-driven way
+- how do we test that raphael did anything?
+ - Paper.forEach - loop through all elements in a paper
+ - Element.node - gives a reference to underlying DOM element
+ - Element.getSubpath
+
 
 to build:
     - run ./jake.sh

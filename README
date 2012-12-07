@@ -267,5 +267,8 @@ First! want to modify home page for manual testing
  - Element.getSubpath
 - should convert client to actual object instead of global
 
+episode 49: find the path
+
+
 to build:
     - run ./jake.sh

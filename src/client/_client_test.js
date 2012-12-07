@@ -51,15 +51,23 @@
             drawingDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append(drawingDiv);
 
-            var paper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
+            var element,
+                paper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
             wikiPaint.drawLine(20, 30, 30, 300);
 
             var elements = [];
-            paper.forEach(function (element) {
-                elements.push(element);
+            paper.forEach(function (elem) {
+                elements.push(elem);
             });
 
             expect(elements.length).to.equal(1);
+            element = elements[0];
+
+            // path to node value
+            var path = element.node.attributes.d.value;
+            dump(path);
+            dump(element.node.attributes["d"].textContent);
+            // element[0].node.attributes["d"].value
 
         });
     });

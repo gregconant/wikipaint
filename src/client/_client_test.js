@@ -52,14 +52,14 @@
             $("body").append(drawingDiv);
 
             var paper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
-
             wikiPaint.drawLine(20, 30, 30, 300);
-            var totalElements = 0;
+
+            var elements = [];
             paper.forEach(function (element) {
-                totalElements += 1;
+                elements.push(element);
             });
 
-            expect(totalElements).to.equal(1);
+            expect(elements.length).to.equal(1);
 
         });
     });

@@ -265,7 +265,7 @@ First! want to modify home page for manual testing
  - Paper.forEach - loop through all elements in a paper
  - Element.node - gives a reference to underlying DOM element
  - Element.getSubpath
-
+- should convert client to actual object instead of global
 
 to build:
     - run ./jake.sh

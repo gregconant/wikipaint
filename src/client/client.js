@@ -1,21 +1,22 @@
 /*global describe, it, expect, dump, window, Raphael, $, wikiPaint:true */
 
-wikiPaint = {};
-
-(function () {
+wikiPaint = (function () {
    "use strict";
 
-    wikiPaint.initializeDrawingArea = function (drawingAreaElement) {
-        // returns Raphael paper object
-        var paper = new Raphael(drawingAreaElement);
+    var paper,
+        self = {};
 
-        paper.path("M20,30L200,20");
+    self.initializeDrawingArea = function (drawingAreaElement) {
+        // returns Raphael paper object
+        paper = new Raphael(drawingAreaElement);
 
         return paper;
     };
 
-    wikiPaint.drawLine = function(startX, startY, endX, endY) {
-
+    self.drawLine = function(startX, startY, endX, endY) {
+        paper.path("M1,1L2,2");
     };
+
+    return self;
 
 }());

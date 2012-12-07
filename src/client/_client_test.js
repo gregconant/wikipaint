@@ -5,7 +5,8 @@
 
     var drawingDiv,
         raphPaper,
-        pathFor;
+        pathFor,
+        pathStringForIE9;
 
     describe("Drawing area", function () {
 
@@ -48,6 +49,12 @@
             expect(raphPaper.width).to.be(600);
         });
 
+        pathStringForIE9 = function(nodePath) {
+            var ie9Path = /M (\d+) (\d+) L (\d+) (\d+)/;
+            var ie9 = nodePath.match(ie9Path);
+            return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
+        };
+
         pathFor = function(element) {
             var ie9Path,
                 ie9,
@@ -59,10 +66,7 @@
             } else {
                 // we're in IE9, which uses format
                 // M 20 30 L 30 300
-                ie9Path = /M (\d+) (\d+) L (\d+) (\d+)/;
-                ie9 = path.match(ie9Path);
-
-                return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
+                return pathStringForIE9(path);
             }
         };
 

@@ -4,7 +4,8 @@
     "use strict";
 
     var drawingDiv,
-        raphPaper;
+        raphPaper,
+        pathFor;
 
     describe("Drawing area", function () {
 
@@ -47,6 +48,24 @@
             expect(raphPaper.width).to.be(600);
         });
 
+        pathFor = function(element) {
+            var ie9Path,
+                ie9,
+                path = element.node.attributes.d.value;
+            if(path.indexOf(",") !== -1) {
+                // Firefox, safari, chrome, which uses Format
+                // M20,30L30,200
+                return path;
+            } else {
+                // we're in IE9, which uses format
+                // M 20 30 L 30 300
+                ie9Path = /M (\d+) (\d+) L (\d+) (\d+)/;
+                ie9 = path.match(ie9Path);
+
+                return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
+            }
+        };
+
         it("should draw a line", function () {
             drawingDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append(drawingDiv);
@@ -64,9 +83,9 @@
             element = elements[0];
 
             // path to node value
-            var path = element.node.attributes.d.value;
+            var path = pathFor(element);
             dump(path);
-            dump(element.node.attributes["d"].textContent);
+            //dump(element.node.attributes["d"].textContent);
             // element[0].node.attributes["d"].value
 
         });

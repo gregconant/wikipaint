@@ -254,5 +254,13 @@ episode 47: it's element-ary
 - can get raphael type with Raphael.type (outputs VML or SVG)
 - next: somehow test/compensate for user actions.
 
+episode 48: test it for real
+- draw a line in response to user mouse
+- draw a line in response to oOS touch
+- draw multiple lines / follow the drag
+First! want to modify home page for manual testing
+  - spike drawing a line and review it manually
+  - redo line-drawing code in a test-driven way
+
 to build:
     - run ./jake.sh

@@ -7,7 +7,11 @@ wikiPaint = {};
 
     wikiPaint.initializeDrawingArea = function (drawingAreaElement) {
         // returns Raphael paper object
-        return new Raphael(drawingAreaElement);
+        var paper = new Raphael(drawingAreaElement);
+
+        paper.path("M20,30L200,20");
+
+        return paper;
     };
 
 }());

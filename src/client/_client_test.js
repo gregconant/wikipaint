@@ -6,8 +6,9 @@
     var drawingDiv,
         raphPaper,
         pathFor,
+        pathForSvg,
         pathStringForIE9,
-        pathStringForIE8,
+        pathForVml,
         VML_MAGIC_NUMBER = 21600;
 
     describe("Drawing area", function () {
@@ -51,13 +52,14 @@
             expect(raphPaper.width).to.be(600);
         });
 
-        pathStringForIE8 = function(nodePath) {
+        pathForVml = function(element) {
             var startX,
                 startY,
                 endX,
                 endY,
+                ie8Path = element.node.path.value,
                 ie8PathRegex = /m(\d+),(\d+) l(\d+),(\d+) e/,
-                ie8 = nodePath.match(ie8PathRegex);
+                ie8 = ie8Path.match(ie8PathRegex);
 
             startX = ie8[1] / VML_MAGIC_NUMBER;
             startY = ie8[2] / VML_MAGIC_NUMBER;
@@ -73,21 +75,8 @@
             return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
         };
 
-        pathFor = function(element) {
-            var ie8Path,
-                ie9Path,
-                ie9,
-                path;
-
-            if(Raphael.vml) {
-                ie8Path = element.node.path.value;
-                // we're in IE8, which uses format
-                // m432000,648000 l648000,67456800 e
-
-                return pathStringForIE8(ie8Path);
-            }
-
-            path = element.node.attributes.d.value;
+        pathForSvg = function(element) {
+            var path = element.node.attributes.d.value;
             if(path.indexOf(",") !== -1) {
                 // Firefox, safari, chrome, which uses Format
                 // M20,30L30,200
@@ -96,6 +85,26 @@
                 // we're in IE9, which uses format
                 // M 20 30 L 30 300
                 return pathStringForIE9(path);
+            }
+        };
+
+        pathFor = function(element) {
+            var ie8Path,
+                ie9Path,
+                ie9,
+                path;
+
+            if(Raphael.vml) {
+
+                // we're in IE8, which uses format
+                // m432000,648000 l648000,67456800 e
+
+                return pathForVml(element);
+            } else if(Raphael.svg){
+                return pathForSvg(element);
+
+            } else {
+                throw new Error("Unknown Raphael type/format.");
             }
         };
 

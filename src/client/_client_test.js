@@ -6,7 +6,9 @@
     var drawingDiv,
         raphPaper,
         pathFor,
-        pathStringForIE9;
+        pathStringForIE9,
+        pathStringForIE8,
+        VML_MAGIC_NUMBER = 21600;
 
     describe("Drawing area", function () {
 
@@ -49,16 +51,43 @@
             expect(raphPaper.width).to.be(600);
         });
 
+        pathStringForIE8 = function(nodePath) {
+            var startX,
+                startY,
+                endX,
+                endY,
+                ie8PathRegex = /m(\d+),(\d+) l(\d+),(\d+) e/,
+                ie8 = nodePath.match(ie8PathRegex);
+
+            startX = ie8[1] / VML_MAGIC_NUMBER;
+            startY = ie8[2] / VML_MAGIC_NUMBER;
+            endX = ie8[3] / VML_MAGIC_NUMBER;
+            endY = ie8[4] / VML_MAGIC_NUMBER;
+
+            return "M" + startX + "," + startY + "L" + endX + "," + endY;
+        };
+
         pathStringForIE9 = function(nodePath) {
-            var ie9Path = /M (\d+) (\d+) L (\d+) (\d+)/;
-            var ie9 = nodePath.match(ie9Path);
+            var ie9PathRegex = /M (\d+) (\d+) L (\d+) (\d+)/;
+            var ie9 = nodePath.match(ie9PathRegex);
             return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
         };
 
         pathFor = function(element) {
-            var ie9Path,
+            var ie8Path,
+                ie9Path,
                 ie9,
-                path = element.node.attributes.d.value;
+                path;
+
+            if(Raphael.vml) {
+                ie8Path = element.node.path.value;
+                // we're in IE8, which uses format
+                // m432000,648000 l648000,67456800 e
+
+                return pathStringForIE8(ie8Path);
+            }
+
+            path = element.node.attributes.d.value;
             if(path.indexOf(",") !== -1) {
                 // Firefox, safari, chrome, which uses Format
                 // M20,30L30,200

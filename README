@@ -272,6 +272,8 @@ episode 49: find the path
 - IE has raphael nodes displayed differently from chrome & firefox.
   put in a stringifier for the IE
 
+episode 50: damn near impossible
+- VML in IE8 is ridiculous (debugging how to get raphael path)
 
 to build:
     - run ./jake.sh

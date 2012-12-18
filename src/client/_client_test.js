@@ -6,9 +6,9 @@
     var drawingDiv,
         raphPaper,
         pathFor,
-        pathForSvg,
+        svgPathFor,
         pathStringForIE9,
-        pathForVml,
+        vmlPathFor,
         VML_MAGIC_NUMBER = 21600;
 
     describe("Drawing area", function () {
@@ -52,7 +52,7 @@
             expect(raphPaper.width).to.be(600);
         });
 
-        pathForVml = function(element) {
+        vmlPathFor = function(element) {
             var startX,
                 startY,
                 endX,
@@ -75,7 +75,7 @@
             return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
         };
 
-        pathForSvg = function(element) {
+        svgPathFor = function(element) {
             var path = element.node.attributes.d.value;
             if(path.indexOf(",") !== -1) {
                 // Firefox, safari, chrome, which uses Format
@@ -99,9 +99,9 @@
                 // we're in IE8, which uses format
                 // m432000,648000 l648000,67456800 e
 
-                return pathForVml(element);
+                return vmlPathFor(element);
             } else if(Raphael.svg){
-                return pathForSvg(element);
+                return svgPathFor(element);
 
             } else {
                 throw new Error("Unknown Raphael type/format.");

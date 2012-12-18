@@ -275,5 +275,13 @@ episode 49: find the path
 episode 50: damn near impossible
 - VML in IE8 is ridiculous (debugging how to get raphael path)
 
+episode 51: click, position, and spike
+- want to test and respond to mouse events
+- attempt 1: draw line from 0,0 to location of click
+- for now, just spiked the mouse-line-drawing code
+- next, make clicks draw a line where we click
+        follow mouse pointer
+        handle dragging
+
 to build:
     - run ./jake.sh

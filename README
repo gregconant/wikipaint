@@ -289,5 +289,9 @@ episode 52: dragging the mouse
 - for this spike, we just turn off dragging when we leave the drawing area.
 - next, figure out how to simulate mouse events
 
+episode 53: too much test code
+- step 1 for TDD: simulate click somewhere in drawing area,
+  test that we're seeing a line drawn from (0,0) to that point.
+
 to build:
     - run ./jake.sh

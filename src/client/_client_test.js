@@ -1,9 +1,9 @@
-/*global describe, it, expect, afterEach, dump, require, $, wikiPaint, Raphael*/
+/*global describe, it, expect, afterEach, beforeEach, dump, require, $, wikiPaint, Raphael*/
 
 (function () {
     "use strict";
 
-    var drawingDiv,
+    var $drawingArea,
         raphPaper,
         pathFor,
         svgPathFor,
@@ -13,22 +13,21 @@
 
     describe("Drawing area", function () {
 
+        beforeEach(function() {
+           $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+           $("body").append($drawingArea);
+        });
+
         afterEach(function () {
-           drawingDiv.remove();
+           $drawingArea.remove();
         });
 
         it("should be initialized with Raphael", function () {
             var tagName, raphType;
 
-            drawingDiv = $("<div></div>");
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
-            $("body").append(drawingDiv);
-
-            // initialize the div (production code)
-            raphPaper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
-
-            // verify div was initialized correctly
-            tagName = drawingDiv.children()[0].tagName.toLowerCase();
+            tagName = $drawingArea.children()[0].tagName.toLowerCase();
             raphType = Raphael.type;
 
             if (raphType === "SVG") {
@@ -42,11 +41,7 @@
         });
 
         it("should have the same dimensions as its enclosing div", function () {
-            drawingDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-
-            $("body").append(drawingDiv);
-
-            raphPaper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
             expect(raphPaper.height).to.be(300);
             expect(raphPaper.width).to.be(600);
@@ -108,28 +103,26 @@
             }
         };
 
-        it("should draw a line", function () {
-            drawingDiv = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-            $("body").append(drawingDiv);
-
-            var element,
-                paper = wikiPaint.initializeDrawingArea(drawingDiv[0]);
-            wikiPaint.drawLine(20, 30, 30, 300);
-
+        function getElements(paper) {
             var elements = [];
             paper.forEach(function (elem) {
                 elements.push(elem);
             });
+            return elements;
+        }
+
+        it("should draw a line", function () {
+            var elements = [],
+                paper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+
+            wikiPaint.drawLine(20, 30, 30, 300);
+            elements = getElements(paper);
 
             expect(elements.length).to.equal(1);
-            element = elements[0];
-
-            // path to node value
-            var path = pathFor(element);
-            dump(path);
-            //dump(element.node.attributes["d"].textContent);
-            // element[0].node.attributes["d"].value
+            expect(pathFor(elements[0])).to.equal("M20,30L30,300");
 
         });
+
+
     });
 }());

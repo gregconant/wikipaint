@@ -66,20 +66,21 @@
             var ie8Path,
                 ie9Path,
                 ie9,
-                path;
+                path,
+                box = element.getBBox();
 
-            if(Raphael.vml) {
+            //dump(JSON.stringify(box));
+            return "M" + box.x + "," + box.y+ "L" + box.x2 + "," + box.y2;
 
+            /*if(Raphael.vml) {
                 // we're in IE8, which uses format
                 // m432000,648000 l648000,67456800 e
-
                 return vmlPathFor(element);
             } else if(Raphael.svg){
                 return svgPathFor(element);
-
             } else {
                 throw new Error("Unknown Raphael type/format.");
-            }
+            }*/
         };
 
         function getElements(paper) {

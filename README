@@ -292,6 +292,7 @@ episode 52: dragging the mouse
 episode 53: too much test code
 - step 1 for TDD: simulate click somewhere in drawing area,
   test that we're seeing a line drawn from (0,0) to that point.
+- delete raphael internals in client_test? (svgPathFor and pathStringForIe8, etc?)
 
 to build:
     - run ./jake.sh

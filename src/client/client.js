@@ -7,16 +7,24 @@ wikiPaint = (function () {
         self = {};
 
     self.initializeDrawingArea = function (drawingAreaElement) {
+
+        var prevX = null,
+            prevY = null;
+
         // returns Raphael paper object
         paper = new Raphael(drawingAreaElement);
-        $(drawingAreaElement).click(function (event) {
+        $(drawingAreaElement).mousemove(function (event) {
             // TODO: Have to account for padding, border, margin
             var divPageX = $(drawingAreaElement).offset().left,
                 divPageY = $(drawingAreaElement).offset().top,
                 relativeX = event.pageX - divPageX,
                 relativeY = event.pageY - divPageY;
 
-            wikiPaint.drawLine(0, 0, relativeX, relativeY);
+            if(prevX !== null) {
+                wikiPaint.drawLine(prevX, prevY, relativeX, relativeY);
+            }
+            prevX = relativeX;
+            prevY = relativeY;
 
         });
 

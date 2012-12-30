@@ -283,5 +283,8 @@ episode 51: click, position, and spike
         follow mouse pointer
         handle dragging
 
+episode 52: dragging the mouse
+
+
 to build:
     - run ./jake.sh

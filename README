@@ -284,7 +284,10 @@ episode 51: click, position, and spike
         handle dragging
 
 episode 52: dragging the mouse
-
+- got spike working to show that we can draw lines on click/drag
+- check state of mouse on mouseMove event and see if we're in the drawing area
+- for this spike, we just turn off dragging when we leave the drawing area.
+- next, figure out how to simulate mouse events
 
 to build:
     - run ./jake.sh

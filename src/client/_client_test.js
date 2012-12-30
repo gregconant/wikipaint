@@ -16,33 +16,14 @@
         beforeEach(function() {
            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
            $("body").append($drawingArea);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
         });
 
         afterEach(function () {
            $drawingArea.remove();
         });
 
-        it("should be initialized with Raphael", function () {
-            var tagName, raphType;
-
-            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
-
-            tagName = $drawingArea.children()[0].tagName.toLowerCase();
-            raphType = Raphael.type;
-
-            if (raphType === "SVG") {
-                expect(tagName).to.equal("svg");
-
-            } else if(raphType === "VML") { // in IE 8
-                expect(tagName).to.equal("div");
-            } else {
-                throw new Error("Raphael does not support browser.");
-            }
-        });
-
         it("should have the same dimensions as its enclosing div", function () {
-            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
-
             expect(raphPaper.height).to.be(300);
             expect(raphPaper.width).to.be(600);
         });
@@ -73,12 +54,10 @@
         svgPathFor = function(element) {
             var path = element.node.attributes.d.value;
             if(path.indexOf(",") !== -1) {
-                // Firefox, safari, chrome, which uses Format
-                // M20,30L30,200
+                // Firefox, safari, chrome, which uses format: M20,30L30,200
                 return path;
             } else {
-                // we're in IE9, which uses format
-                // M 20 30 L 30 300
+                // we're in IE9, which uses format: M 20 30 L 30 300
                 return pathStringForIE9(path);
             }
         };
@@ -112,11 +91,10 @@
         }
 
         it("should draw a line", function () {
-            var elements = [],
-                paper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+            var elements = [];
 
             wikiPaint.drawLine(20, 30, 30, 300);
-            elements = getElements(paper);
+            elements = getElements(raphPaper);
 
             expect(elements.length).to.equal(1);
             expect(pathFor(elements[0])).to.equal("M20,30L30,300");

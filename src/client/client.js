@@ -8,8 +8,8 @@ wikiPaint = (function () {
 
     self.initializeDrawingArea = function (drawingAreaElement) {
 
-        var prevX = null,
-            prevY = null,
+        var startX = null,
+            startY = null,
             $jqArea = $(drawingAreaElement),
             isDragging = false;
 
@@ -17,9 +17,15 @@ wikiPaint = (function () {
         paper = new Raphael(drawingAreaElement);
 
         $jqArea.click(function (event) {
-            var topLeft = $jqArea.offset();
+            var pageOffset = $jqArea.offset();
+            var endX = event.pageX - pageOffset.left;
+            var endY = event.pageY - pageOffset.top;
 
-            wikiPaint.drawLine(0,0, event.pageX - topLeft.left, event.pageY - topLeft.top);
+            if(startX !== null) {
+                wikiPaint.drawLine(startX, startY, endX, endY);
+            }
+            startX = endX;
+            startY = endY;
         });
 
 //        $jqArea.mousedown(function (event) {

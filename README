@@ -304,6 +304,7 @@ episode 54: testing the mouse event
     '$(elem).click(eventData)'
   you need to do:
     '$(elem).trigger(eventData)' instead
+- next: have to have click tracking account for margin, border, padding
 
 to build:
     - run ./jake.sh

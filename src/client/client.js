@@ -16,30 +16,34 @@ wikiPaint = (function () {
         // returns Raphael paper object
         paper = new Raphael(drawingAreaElement);
 
-        $jqArea.mousedown(function (event) {
-            isDragging = true;
-        });
-        $jqArea.mouseup(function (event) {
-            isDragging = false;
-        });
-        $jqArea.mouseleave(function (event) {
-            isDragging = false;
+        $(drawingAreaElement).click(function (event) {
+            wikiPaint.drawLine(0,0,event.pageX, event.pageY);
         });
 
-        $jqArea.mousemove(function (event) {
-            // TODO: Have to account for padding, border, margin
-            var divPageX = $jqArea.offset().left,
-                divPageY = $jqArea.offset().top,
-                relativeX = event.pageX - divPageX,
-                relativeY = event.pageY - divPageY;
-
-            if(prevX !== null && isDragging) {
-                wikiPaint.drawLine(prevX, prevY, relativeX, relativeY);
-            }
-            prevX = relativeX;
-            prevY = relativeY;
-
-        });
+//        $jqArea.mousedown(function (event) {
+//            isDragging = true;
+//        });
+//        $jqArea.mouseup(function (event) {
+//            isDragging = false;
+//        });
+//        $jqArea.mouseleave(function (event) {
+//            isDragging = false;
+//        });
+//
+//        $jqArea.mousemove(function (event) {
+//            // TODO: Have to account for padding, border, margin
+//            var divPageX = $jqArea.offset().left,
+//                divPageY = $jqArea.offset().top,
+//                relativeX = event.pageX - divPageX,
+//                relativeY = event.pageY - divPageY;
+//
+//            if(prevX !== null && isDragging) {
+//                wikiPaint.drawLine(prevX, prevY, relativeX, relativeY);
+//            }
+//            prevX = relativeX;
+//            prevY = relativeY;
+//
+//        });
 
         return paper;
     };

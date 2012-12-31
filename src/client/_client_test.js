@@ -1,4 +1,4 @@
-/*global describe, it, expect, afterEach, beforeEach, dump, require, $, wikiPaint, Raphael*/
+/*global jQuery, describe, it, expect, afterEach, beforeEach, dump, require, $, wikiPaint, Raphael*/
 
 (function () {
     "use strict";
@@ -102,6 +102,20 @@
 
         });
 
+        it("should respond to the mouse", function () {
+           // click inside drawing area
+            var eventData = new jQuery.Event("click");
+
+            eventData.pageX = 20;
+            eventData.pageY = 30;
+
+            $drawingArea.trigger(eventData);
+            // verify a line was drawn (from 0,0 to click location)
+
+            var elements = getElements(raphPaper);
+            expect(elements.length).to.equal(1);
+            expect(pathFor(elements[0])).to.equal("M0,0L20,30");
+        });
 
     });
 }());

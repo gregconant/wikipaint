@@ -116,8 +116,16 @@
             $drawingArea.trigger(eventData);
         }
 
+        function relativePosition($area, pageX, pageY) {
+            var topLeftOfDrawingArea = $area.offset(),
+                x = pageX - topLeftOfDrawingArea.left,
+                y = pageY - topLeftOfDrawingArea.top;
+
+            return {x: x, y: y};
+        }
+
         it("draws line segments in response to clicks", function () {
-           // click inside drawing area
+            // click inside drawing area
             var topLeftOfDrawingArea,
                 expectedX,
                 expectedY,
@@ -129,13 +137,11 @@
 
             clickMouse(20, 30);
 
-            topLeftOfDrawingArea = $drawingArea.offset();
-            expectedX = 20 - topLeftOfDrawingArea.left;
-            expectedY = 30 - topLeftOfDrawingArea.top;
+            var position = relativePosition($drawingArea, 20, 30);
 
             var elements = getElements(raphPaper);
             expect(elements.length).to.equal(1);
-            expect(pathFor(elements[0])).to.equal("M0,0L" + expectedX + "," + expectedY);
+            expect(pathFor(elements[0])).to.equal("M0,0L" + position.x + "," + position.y);
 
             //TODO: test accounting for margin, border, padding
         });

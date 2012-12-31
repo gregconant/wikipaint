@@ -137,6 +137,7 @@
 
             clickMouse(20, 30);
             clickMouse(50, 60);
+            clickMouse(40, 20);
 
             var startPosition = relativePosition($drawingArea, 20, 30);
             var endPosition = relativePosition($drawingArea, 50, 60);
@@ -144,6 +145,7 @@
             var elements = getElements(raphPaper);
             expect(elements.length).to.equal(1);
             expect(pathFor(elements[0])).to.equal("M" + startPosition.x + "," + startPosition.y + "L" + endPosition.x + "," + endPosition.y);
+            expect(pathFor(elements[1])).to.equal("M" + startPosition.x + "," + startPosition.y + "L" + endPosition.x + "," + endPosition.y);
 
             //TODO: test accounting for margin, border, padding
         });

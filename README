@@ -312,6 +312,8 @@ episode 55: border patrol
 episode 56: back to click tracking
 - put checking on margin/border/padding off to another episode.
 do click tracking/event handling working here.
+- want to show that we are drawing multiple line segments
+and make assertions easier to write and read.
 
 
 to build:

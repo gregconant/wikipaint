@@ -108,21 +108,26 @@
 
         });
 
-        it("should respond to the mouse", function () {
+        function clickMouse(pageX, pageY) {
+            var eventData = new jQuery.Event("click");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
+
+        it("draws line segments in response to clicks", function () {
            // click inside drawing area
             var topLeftOfDrawingArea,
                 expectedX,
                 expectedY,
-                eventData = new jQuery.Event("click");
+                eventData;
 
             $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append($drawingArea);
             raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
-            eventData.pageX = 20;
-            eventData.pageY = 30;
-
-            $drawingArea.trigger(eventData);
+            clickMouse(20, 30);
 
             topLeftOfDrawingArea = $drawingArea.offset();
             expectedX = 20 - topLeftOfDrawingArea.left;

@@ -306,5 +306,8 @@ episode 54: testing the mouse event
     '$(elem).trigger(eventData)' instead
 - next: have to have click tracking account for margin, border, padding
 
+episode 55: border patrol
+
+
 to build:
     - run ./jake.sh

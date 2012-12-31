@@ -18,10 +18,8 @@ wikiPaint = (function () {
 
         $jqArea.click(function (event) {
             var topLeft = $jqArea.offset();
-                //topBorder  = parseInt($jqArea.css("border-top-width"), 10),
-                //leftBorder = parseInt($jqArea.css("border-left-width"), 10);
-            //wikiPaint.drawLine(0,0, event.pageX - topLeft.left, event.pageY - topLeft.top);
-            wikiPaint.drawLine(0,0, event.pageX, event.pageY);
+
+            wikiPaint.drawLine(0,0, event.pageX - topLeft.left, event.pageY - topLeft.top);
         });
 
 //        $jqArea.mousedown(function (event) {

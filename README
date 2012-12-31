@@ -307,6 +307,11 @@ episode 54: testing the mouse event
 - next: have to have click tracking account for margin, border, padding
 
 episode 55: border patrol
+- limited success
+
+episode 56: back to click tracking
+- put checking on margin/border/padding off to another episode.
+do click tracking/event handling working here.
 
 
 to build:

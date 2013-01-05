@@ -108,22 +108,6 @@
 
         });
 
-        function clickMouse(pageX, pageY) {
-            var eventData = new jQuery.Event("click");
-
-            eventData.pageX = pageX;
-            eventData.pageY = pageY;
-            $drawingArea.trigger(eventData);
-        }
-
-        function relativePosition($area, pageX, pageY) {
-            var topLeftOfDrawingArea = $area.offset(),
-                x = pageX - topLeftOfDrawingArea.left,
-                y = pageY - topLeftOfDrawingArea.top;
-
-            return {x: x, y: y};
-        }
-
         it("draws line segments in response to clicks", function () {
             // click inside drawing area
             var topLeftOfDrawingArea,
@@ -135,20 +119,31 @@
             $("body").append($drawingArea);
             raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
+            // these points are offsets, not absolute page points. need to add relative position.
             clickMouse(20, 30);
             clickMouse(50, 60);
-            clickMouse(40, 20);
+            //clickMouse(40, 20);
 
-            var startPosition = relativePosition($drawingArea, 20, 30);
-            var endPosition = relativePosition($drawingArea, 50, 60);
+            expect(paperPaths(raphPaper)).to.eql([20, 30, 50, 60]);
 
-            var elements = getElements(raphPaper);
-            expect(elements.length).to.equal(1);
-            expect(pathFor(elements[0])).to.equal("M" + startPosition.x + "," + startPosition.y + "L" + endPosition.x + "," + endPosition.y);
-            expect(pathFor(elements[1])).to.equal("M" + startPosition.x + "," + startPosition.y + "L" + endPosition.x + "," + endPosition.y);
-
-            //TODO: test accounting for margin, border, padding
         });
+
+        function paperPaths(paper) {
+            var elements = getElements(paper),
+                box = elements[0].getBBox();
+            return [ box.x, box.y, box.x2, box.y2];
+        }
+
+        function clickMouse(relativeX, relativeY) {
+            var topLeftOfDrawingArea = $drawingArea.offset(),
+                pageX = relativeX + topLeftOfDrawingArea.left,
+                pageY = relativeY + topLeftOfDrawingArea.top,
+                eventData = new jQuery.Event("click");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
 
 //        it("considers border when calculating mouse target", function () {
 //            $drawingArea = $("<div style='height: 300px; width:600px; border-width:13px;'>Hi, jerk.</div>");

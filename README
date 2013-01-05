@@ -315,6 +315,14 @@ do click tracking/event handling working here.
 - want to show that we are drawing multiple line segments
 and make assertions easier to write and read.
 
+episode 57: simplify our assertions
+- refactoring the client test code
+- comparing arrays of ints in expect.js (expect(something).to.equal(somethingElse)
+  is not working the way we expect. it's doing a reference equal.
+  need to do .to.eql() instead of .to.equal()
+- also we want to add the relative position/offset to the clickMouse
+  function so our asserts can line up better
+
 
 to build:
     - run ./jake.sh

@@ -322,6 +322,7 @@ episode 57: simplify our assertions
   need to do .to.eql() instead of .to.equal()
 - also we want to add the relative position/offset to the clickMouse
   function so our asserts can line up better
+- we want the paperPaths function to return multiple arrays
 
 
 to build:

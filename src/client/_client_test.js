@@ -13,6 +13,31 @@
 
     describe("Drawing area", function () {
 
+        function paperPaths(paper) {
+            var elements = getElements(paper),
+                result = [],
+                box;
+
+            for(var i = 0; i < elements.length; i +=1) {
+                box = elements[i].getBBox();
+                result.push([ box.x, box.y, box.x2, box.y2]);
+            }
+            return result;
+
+        }
+
+        function clickMouse(relativeX, relativeY) {
+            var topLeftOfDrawingArea = $drawingArea.offset(),
+                pageX = relativeX + topLeftOfDrawingArea.left,
+                pageY = relativeY + topLeftOfDrawingArea.top,
+                eventData = new jQuery.Event("click");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
+
+
         beforeEach(function() {
 
         });
@@ -122,28 +147,10 @@
             // these points are offsets, not absolute page points. need to add relative position.
             clickMouse(20, 30);
             clickMouse(50, 60);
-            //clickMouse(40, 20);
+            clickMouse(40, 20);
 
-            expect(paperPaths(raphPaper)).to.eql([20, 30, 50, 60]);
-
+            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50,60,40,20]]);
         });
-
-        function paperPaths(paper) {
-            var elements = getElements(paper),
-                box = elements[0].getBBox();
-            return [ box.x, box.y, box.x2, box.y2];
-        }
-
-        function clickMouse(relativeX, relativeY) {
-            var topLeftOfDrawingArea = $drawingArea.offset(),
-                pageX = relativeX + topLeftOfDrawingArea.left,
-                pageY = relativeY + topLeftOfDrawingArea.top,
-                eventData = new jQuery.Event("click");
-
-            eventData.pageX = pageX;
-            eventData.pageY = pageY;
-            $drawingArea.trigger(eventData);
-        }
 
 //        it("considers border when calculating mouse target", function () {
 //            $drawingArea = $("<div style='height: 300px; width:600px; border-width:13px;'>Hi, jerk.</div>");

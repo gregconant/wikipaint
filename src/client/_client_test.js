@@ -61,7 +61,6 @@
             if(path.indexOf(",") !== -1) {
                 svg = path.match(svgPathRegex);
                 // Firefox, safari, chrome, which uses format: M20,30L30,200
-
                 return {
                     x: svg[1],
                     y: svg[2],
@@ -108,7 +107,6 @@
 
                 result.push([ box.x, box.y, box.x2, box.y2]);
             }
-            dump(result);
             return result;
 
         }
@@ -183,7 +181,7 @@
             clickMouse(50, 60);
             clickMouse(40, 20);
 
-            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50,60,40,20]]);
+            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50, 60, 40, 20]]);
         });
 
 //        it("considers border when calculating mouse target", function () {

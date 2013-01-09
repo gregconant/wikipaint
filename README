@@ -330,6 +330,8 @@ episode 58: a conundrum
 - test multiple paths
 - all this works because we wrote the code as a spike before TDDing it
 
+episode 59: a solution
+
 
 to build:
     - run ./jake.sh

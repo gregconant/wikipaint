@@ -13,15 +13,102 @@
 
     describe("Drawing area", function () {
 
+        vmlPathFor = function(element) {
+            var startX,
+                startY,
+                endX,
+                endY,
+                ie8Path = element.node.path.value,
+                ie8PathRegex = /m(\d+),(\d+) l(\d+),(\d+) e/,
+                ie8 = ie8Path.match(ie8PathRegex);
+
+            startX = ie8[1] / VML_MAGIC_NUMBER;
+            startY = ie8[2] / VML_MAGIC_NUMBER;
+            endX = ie8[3] / VML_MAGIC_NUMBER;
+            endY = ie8[4] / VML_MAGIC_NUMBER;
+
+            return {
+                x: startX,
+                y: startY,
+                x2: endX,
+                y2: endY
+            };
+
+            //return "M" + startX + "," + startY + "L" + endX + "," + endY;
+        };
+
+        pathStringForIE9 = function(nodePath) {
+            var ie9PathRegex = /M (\d+) (\d+) L (\d+) (\d+)/;
+            var ie9 = nodePath.match(ie9PathRegex);
+
+            return {
+                x: ie9[1],
+                y: ie9[2],
+                x2: ie9[3],
+                y2: ie9[4]
+            };
+
+            //return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
+        };
+
+        svgPathFor = function(element) {
+            var svg,
+                svgPathRegex = /M(\d+),(\d+)L(\d+),(\d+)/;
+
+            var path = element.node.attributes.d.value;
+
+
+            if(path.indexOf(",") !== -1) {
+                svg = path.match(svgPathRegex);
+                // Firefox, safari, chrome, which uses format: M20,30L30,200
+
+                return {
+                    x: svg[1],
+                    y: svg[2],
+                    x2: svg[3],
+                    y2: svg[4]
+                };
+                //return path;
+            } else {
+                // we're in IE9, which uses format: M 20 30 L 30 300
+                return pathStringForIE9(path);
+            }
+        };
+
+        pathFor = function(element) {
+            var ie8Path,
+                ie9Path,
+                ie9,
+                path,
+                box = element.getBBox();
+
+            //dump(JSON.stringify(box));
+            //return "M" + box.x + "," + box.y+ "L" + box.x2 + "," + box.y2;
+
+            if(Raphael.vml) {
+                // we're in IE8, which uses format
+                // m432000,648000 l648000,67456800 e
+                return vmlPathFor(element);
+            } else if(Raphael.svg) {
+                return svgPathFor(element);
+            } else {
+                throw new Error("Unknown Raphael type/format.");
+            }
+        };
+
+
         function paperPaths(paper) {
+            // note: paths are normalized with left side first in all cases
             var elements = getElements(paper),
                 result = [],
                 box;
 
             for(var i = 0; i < elements.length; i +=1) {
-                box = elements[i].getBBox();
+                box = pathFor(elements[i]);
+
                 result.push([ box.x, box.y, box.x2, box.y2]);
             }
+            dump(result);
             return result;
 
         }
@@ -55,61 +142,6 @@
             expect(raphPaper.width).to.be(600);
         });
 
-        vmlPathFor = function(element) {
-            var startX,
-                startY,
-                endX,
-                endY,
-                ie8Path = element.node.path.value,
-                ie8PathRegex = /m(\d+),(\d+) l(\d+),(\d+) e/,
-                ie8 = ie8Path.match(ie8PathRegex);
-
-            startX = ie8[1] / VML_MAGIC_NUMBER;
-            startY = ie8[2] / VML_MAGIC_NUMBER;
-            endX = ie8[3] / VML_MAGIC_NUMBER;
-            endY = ie8[4] / VML_MAGIC_NUMBER;
-
-            return "M" + startX + "," + startY + "L" + endX + "," + endY;
-        };
-
-        pathStringForIE9 = function(nodePath) {
-            var ie9PathRegex = /M (\d+) (\d+) L (\d+) (\d+)/;
-            var ie9 = nodePath.match(ie9PathRegex);
-            return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
-        };
-
-        svgPathFor = function(element) {
-            var path = element.node.attributes.d.value;
-            if(path.indexOf(",") !== -1) {
-                // Firefox, safari, chrome, which uses format: M20,30L30,200
-                return path;
-            } else {
-                // we're in IE9, which uses format: M 20 30 L 30 300
-                return pathStringForIE9(path);
-            }
-        };
-
-        pathFor = function(element) {
-            var ie8Path,
-                ie9Path,
-                ie9,
-                path,
-                box = element.getBBox();
-
-            //dump(JSON.stringify(box));
-            return "M" + box.x + "," + box.y+ "L" + box.x2 + "," + box.y2;
-
-            /*if(Raphael.vml) {
-                // we're in IE8, which uses format
-                // m432000,648000 l648000,67456800 e
-                return vmlPathFor(element);
-            } else if(Raphael.svg){
-                return svgPathFor(element);
-            } else {
-                throw new Error("Unknown Raphael type/format.");
-            }*/
-        };
-
         function getElements(paper) {
             var elements = [];
             paper.forEach(function (elem) {
@@ -126,10 +158,12 @@
             var elements = [];
 
             wikiPaint.drawLine(20, 30, 30, 300);
-            elements = getElements(raphPaper);
 
-            expect(elements.length).to.equal(1);
-            expect(pathFor(elements[0])).to.equal("M20,30L30,300");
+            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 30, 300 ] ]);
+
+//            elements = getElements(raphPaper);
+//            expect(elements.length).to.equal(1);
+//            expect(pathFor(elements[0])).to.equal("M20,30L30,300");
 
         });
 
@@ -147,9 +181,9 @@
             // these points are offsets, not absolute page points. need to add relative position.
             clickMouse(20, 30);
             clickMouse(50, 60);
-            //clickMouse(40, 20);
+            clickMouse(40, 20);
 
-            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60]]); //, [50,60,40,20]]);
+            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50,60,40,20]]);
         });
 
 //        it("considers border when calculating mouse target", function () {

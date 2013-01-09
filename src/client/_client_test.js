@@ -218,6 +218,17 @@
             //expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50, 60, 40, 20]]);
         });
 
+        it("draws a line in response to mouse drag", function() {
+            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+            $("body").append($drawingArea);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+
+            mouseDown(20, 30);
+            mouseMove(50, 60);
+
+            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60] ]);
+        });
+
         it("does not draw line segments when mouse is not down", function () {
             $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append($drawingArea);
@@ -235,7 +246,6 @@
             raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
             mouseDown(20, 30);
-            mouseMove(20, 30); // TODO: shouldn't need first move event; down event should be enough.
             mouseMove(50, 60);
             mouseUp(50, 60);
             mouseMove(10, 15);

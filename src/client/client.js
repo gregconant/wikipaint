@@ -18,6 +18,10 @@ wikiPaint = (function () {
 
         $jqArea.mousedown(function (event) {
             isDragging = true;
+            var pageOffset = $jqArea.offset();
+            // TODO: eliminate offset calculation
+            startX = event.pageX - pageOffset.left;
+            startY = event.pageY - pageOffset.top;
         });
         $jqArea.mouseup(function (event) {
             isDragging = false;

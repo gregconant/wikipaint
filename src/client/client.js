@@ -16,25 +16,27 @@ wikiPaint = (function () {
         // returns Raphael paper object
         paper = new Raphael(drawingAreaElement);
 
+        $jqArea.mousedown(function (event) {
+            isDragging = true;
+        });
+        $jqArea.mouseup(function (event) {
+            isDragging = false;
+        });
+
         $jqArea.mousemove(function (event) {
-            dump("inside mousemove");
+
             var pageOffset = $jqArea.offset();
             var endX = event.pageX - pageOffset.left;
             var endY = event.pageY - pageOffset.top;
 
-            if(startX !== null) {
+            if(startX !== null && isDragging) {
                 wikiPaint.drawLine(startX, startY, endX, endY);
             }
             startX = endX;
             startY = endY;
         });
 
-//        $jqArea.mousedown(function (event) {
-//            isDragging = true;
-//        });
-//        $jqArea.mouseup(function (event) {
-//            isDragging = false;
-//        });
+
 //        $jqArea.mouseleave(function (event) {
 //            isDragging = false;
 //        });

@@ -337,7 +337,7 @@ episode 60: what a drag
 - get basic drag to work
 - factor out duplication in mouse event code
 - test all cases
-
+- eliminate duplicate setup code on mouse move tests
 
 to build:
     - run ./jake.sh

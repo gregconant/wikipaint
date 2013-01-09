@@ -324,6 +324,12 @@ episode 57: simplify our assertions
   function so our asserts can line up better
 - we want the paperPaths function to return multiple arrays
 
+episode 58: a conundrum
+- test one click (no paths)
+- test one path
+- test multiple paths
+- all this works because we wrote the code as a spike before TDDing it
+
 
 to build:
     - run ./jake.sh

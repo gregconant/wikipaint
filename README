@@ -331,7 +331,7 @@ episode 58: a conundrum
 - all this works because we wrote the code as a spike before TDDing it
 
 episode 59: a solution
-
+- need to factor out duplication in mouse event code
 
 to build:
     - run ./jake.sh

@@ -109,6 +109,39 @@
             $drawingArea.trigger(eventData);
         }
 
+        function mouseDown(relativeX, relativeY) {
+            var topLeftOfDrawingArea = $drawingArea.offset(),
+                pageX = relativeX + topLeftOfDrawingArea.left,
+                pageY = relativeY + topLeftOfDrawingArea.top,
+                eventData = new jQuery.Event("mousedown");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
+
+        function mouseUp(relativeX, relativeY) {
+            var topLeftOfDrawingArea = $drawingArea.offset(),
+                pageX = relativeX + topLeftOfDrawingArea.left,
+                pageY = relativeY + topLeftOfDrawingArea.top,
+                eventData = new jQuery.Event("mouseup");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
+
+        function mouseMove(relativeX, relativeY) {
+            var topLeftOfDrawingArea = $drawingArea.offset(),
+                pageX = relativeX + topLeftOfDrawingArea.left,
+                pageY = relativeY + topLeftOfDrawingArea.top,
+                eventData = new jQuery.Event("mousemove");
+
+            eventData.pageX = pageX;
+            eventData.pageY = pageY;
+            $drawingArea.trigger(eventData);
+        }
+
 
         beforeEach(function() {
 
@@ -169,6 +202,20 @@
             clickMouse(40, 20);
 
             expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50, 60, 40, 20]]);
+        });
+
+        it("draws line segments in response to drags", function () {
+            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+            $("body").append($drawingArea);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+
+            //clickAndDragMouse(20, 30, 50, 60);
+            mouseDown(20, 30);
+            mouseMove(50, 60);
+            mouseUp(50, 60);
+
+            expect(paperPaths(raphPaper)).to.eql([[20, 30, 50, 60], [50, 60, 40, 20]]);
+
         });
 
 //        it("considers border when calculating mouse target", function () {

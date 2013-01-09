@@ -333,5 +333,11 @@ episode 58: a conundrum
 episode 59: a solution
 - need to factor out duplication in mouse event code
 
+episode 60: what a drag
+- get basic drag to work
+- factor out duplication in mouse event code
+- test all cases
+
+
 to build:
     - run ./jake.sh

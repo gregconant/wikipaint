@@ -16,7 +16,8 @@ wikiPaint = (function () {
         // returns Raphael paper object
         paper = new Raphael(drawingAreaElement);
 
-        $jqArea.click(function (event) {
+        $jqArea.mousemove(function (event) {
+            dump("inside mousemove");
             var pageOffset = $jqArea.offset();
             var endX = event.pageX - pageOffset.left;
             var endY = event.pageY - pageOffset.top;

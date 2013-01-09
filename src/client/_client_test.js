@@ -9,9 +9,19 @@
         svgPathFor,
         pathStringForIE9,
         vmlPathFor,
+        pathObjectFromRegex,
         VML_MAGIC_NUMBER = 21600;
 
     describe("Drawing area", function () {
+
+        pathObjectFromRegex = function(regex){
+            return {
+                x: regex[1],
+                y: regex[2],
+                x2: regex[3],
+                y2: regex[4]
+            };
+        },
 
         vmlPathFor = function(element) {
             var startX,
@@ -33,45 +43,24 @@
                 x2: endX,
                 y2: endY
             };
-
             //return "M" + startX + "," + startY + "L" + endX + "," + endY;
         };
 
-        pathStringForIE9 = function(nodePath) {
-            var ie9PathRegex = /M (\d+) (\d+) L (\d+) (\d+)/;
-            var ie9 = nodePath.match(ie9PathRegex);
-
-            return {
-                x: ie9[1],
-                y: ie9[2],
-                x2: ie9[3],
-                y2: ie9[4]
-            };
-
-            //return "M" + ie9[1] + "," + ie9[2] + "L" + ie9[3] + "," + ie9[4];
-        };
-
         svgPathFor = function(element) {
-            var svg,
-                svgPathRegex = /M(\d+),(\d+)L(\d+),(\d+)/;
+            var pathComponents,
+                svgPathRegex;
 
             var path = element.node.attributes.d.value;
 
-
             if(path.indexOf(",") !== -1) {
-                svg = path.match(svgPathRegex);
                 // Firefox, safari, chrome, which uses format: M20,30L30,200
-                return {
-                    x: svg[1],
-                    y: svg[2],
-                    x2: svg[3],
-                    y2: svg[4]
-                };
-                //return path;
+                svgPathRegex = /M(\d+),(\d+)L(\d+),(\d+)/;
             } else {
                 // we're in IE9, which uses format: M 20 30 L 30 300
-                return pathStringForIE9(path);
+                svgPathRegex = /M (\d+) (\d+) L (\d+) (\d+)/;
             }
+            pathComponents = path.match(svgPathRegex);
+            return pathObjectFromRegex(pathComponents);
         };
 
         pathFor = function(element) {
@@ -81,9 +70,7 @@
                 path,
                 box = element.getBBox();
 
-            //dump(JSON.stringify(box));
             //return "M" + box.x + "," + box.y+ "L" + box.x2 + "," + box.y2;
-
             if(Raphael.vml) {
                 // we're in IE8, which uses format
                 // m432000,648000 l648000,67456800 e

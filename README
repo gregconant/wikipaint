@@ -339,5 +339,11 @@ episode 60: what a drag
 - test all cases
 - eliminate duplicate setup code on mouse move tests
 
+episode 61: refinement & simplification
+- get remaining tests for a couple edge cases on mouse click & drag
+- start drag outside drawing area
+- stop drag outside drawing area
+
+
 to build:
     - run ./jake.sh

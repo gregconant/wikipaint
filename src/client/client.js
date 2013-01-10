@@ -8,57 +8,42 @@ wikiPaint = (function () {
 
     self.initializeDrawingArea = function (drawingAreaElement) {
 
-        var startX = null,
-            startY = null,
+        var start = null,
+            end = null,
             $jqArea = $(drawingAreaElement),
-            isDragging = false;
+            isDragging = false,
+
+            relativeOffset = function(absoluteX, absoluteY) {
+                var pageOffset = $jqArea.offset();
+
+                return {
+                    x: absoluteX - pageOffset.left,
+                    y: absoluteY - pageOffset.top
+                };
+            };
 
         // returns Raphael paper object
         paper = new Raphael(drawingAreaElement);
 
         $jqArea.mousedown(function (event) {
-            isDragging = true;
-            var pageOffset = $jqArea.offset();
-            // TODO: eliminate offset calculation
-            startX = event.pageX - pageOffset.left;
-            startY = event.pageY - pageOffset.top;
+            start = relativeOffset(event.pageX, event.pageY);
         });
+
         $jqArea.mouseup(function (event) {
-            isDragging = false;
+            start = null;
         });
 
         $jqArea.mousemove(function (event) {
-
-            var pageOffset = $jqArea.offset();
-            var endX = event.pageX - pageOffset.left;
-            var endY = event.pageY - pageOffset.top;
-
-            if(startX !== null && isDragging) {
-                wikiPaint.drawLine(startX, startY, endX, endY);
+            end = relativeOffset(event.pageX, event.pageY);
+            if(start === null) {
+                return;
             }
-            startX = endX;
-            startY = endY;
+            else {
+                wikiPaint.drawLine(start.x, start.y, end.x, end.y);
+            }
+
+            start = end;
         });
-
-
-//        $jqArea.mouseleave(function (event) {
-//            isDragging = false;
-//        });
-//
-//        $jqArea.mousemove(function (event) {
-//            // TODO: Have to account for padding, border, margin
-//            var divPageX = $jqArea.offset().left,
-//                divPageY = $jqArea.offset().top,
-//                relativeX = event.pageX - divPageX,
-//                relativeY = event.pageY - divPageY;
-//
-//            if(prevX !== null && isDragging) {
-//                wikiPaint.drawLine(prevX, prevY, relativeX, relativeY);
-//            }
-//            prevX = relativeX;
-//            prevY = relativeY;
-//
-//        });
 
         return paper;
     };

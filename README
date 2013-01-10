@@ -1,3 +1,22 @@
+---------------
+Build Automation
+---------------
+episode 1: WeeWikiPaint
+episode 2: Build Automation & Lint
+episode 3: Preparing for Continuous Integration
+episode 4: The Continuous Integration Machine
+episode 5: How to guarantee a good build
+
+---------------
+Test-Driven Development
+---------------
+episode 6: Which Test Framework?
+episode 7: Our First Test
+episode 8: Asynchronisity
+
+---------------
+A Simple Server
+---------------
 episode 9: creating basic HTTP server
 run "node_modules/spikes/node_http/run.bat" to start the server
 then go to localhost:8080 to hit the server.
@@ -54,6 +73,9 @@ http://www.letscodejavascript.com/v1/early_access/ep15.html
 episode 16: Make them read your crap
 http://www.letscodejavascript.com/v1/early_access/ep16.html
 
+---------------
+Serving Files
+---------------
 episode 17: Minimum Marketable Feature
 http://www.letscodejavascript.com/v1/early_access/ep17.html
 - we don't have to shell out to get the current version of node. oops!
@@ -82,6 +104,13 @@ episode 21: Checking our assumptions
 episode 22: custom 404 page
 - need to create a stand-alone server
 
+---------------
+Smoke Test
+---------------
+episode 23: Smoke Test
+
+episode 24: Running the Server
+
 episode 25: The Startup Race
 - equivalent to console.log that doesn't put a line break at the end of the line is process.stdout.write
 - need to have callback in server.start so it can let calling code know when the server is started.
@@ -95,6 +124,10 @@ episode 27: Smoked
 - changed wikipaint.js to pass in command line parameter for Port # to the server.start() call.
      - port = process.argv[2];
 - have minimal server up & running; moving on to other things next time
+
+---------------
+Deployment
+---------------
 
 episode 28: Which Host?
 - working on deploying the site to somewhere real
@@ -129,6 +162,10 @@ episode 32: to the web!
 - wrote test to make sure site is up and running
 - still lots of duplication in code (httpGet function all over)
 - deployment not automated
+
+---------------
+Cross-Browser Testing
+---------------
 
 episode 33: A Client-Side Test Tool
 - want to have the first story be a single-user drawing app and then expand to multi-user later
@@ -196,6 +233,10 @@ episode 40: Windows Addendum
 - used testacular runner in node to run tests and redirected output to be able to capture it,
   instead of shelling out to run it.
 
+---------------
+Testing the DOM
+---------------
+
 episode 41: Seeking the DOM
 - initial stories:
     create drawing area
@@ -254,6 +295,10 @@ episode 47: it's element-ary
 - can get raphael type with Raphael.type (outputs VML or SVG)
 - next: somehow test/compensate for user actions.
 
+---------------
+Drawing a Line
+---------------
+
 episode 48: test it for real
 - draw a line in response to user mouse
 - draw a line in response to oOS touch
@@ -274,6 +319,10 @@ episode 49: find the path
 
 episode 50: damn near impossible
 - VML in IE8 is ridiculous (debugging how to get raphael path)
+
+---------------
+Mouse Events
+---------------
 
 episode 51: click, position, and spike
 - want to test and respond to mouse events
@@ -344,6 +393,12 @@ episode 61: refinement & simplification
 - start drag outside drawing area
 - stop drag outside drawing area
 
+---------------
+Fine-Tuning Mouse Gestures
+---------------
+episode 62: Telling the Story
+
+episode 63: Outside In
 
 to build:
     - run ./jake.sh

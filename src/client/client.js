@@ -43,12 +43,12 @@ wikiPaint = (function () {
         paper.path("M" + startX + ","+ startY + "L" + endX + "," + endY);
     };
 
-    relativeOffset = function($element, absoluteX, absoluteY) {
+    relativeOffset = function($element, pageX, pageY) {
         var pageOffset = $element.offset();
 
         return {
-            x: absoluteX - pageOffset.left,
-            y: absoluteY - pageOffset.top
+            x: pageX - pageOffset.left,
+            y: pageY - pageOffset.top
         };
     };
 

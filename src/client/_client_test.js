@@ -151,6 +151,37 @@
             expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60] ]);
         });
 
+
+        it("draws multiple line segments when mouse is dragged multiple places", function () {
+            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+            $("body").append($drawingArea);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+
+            mouseDown(20, 30);
+            mouseMove(50, 60);
+            mouseMove(40, 20);
+            mouseMove(10, 15);
+
+            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60], [50, 60, 40, 20], [40, 20, 10, 15] ]);
+        });
+
+        it("draws multiple line segments when there are multiple drags", function () {
+            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
+            $("body").append($drawingArea);
+            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+
+            mouseDown(20, 30);
+            mouseMove(50, 60);
+            mouseUp(50, 60);
+
+            mouseMove(40, 20);
+            mouseDown(30, 25);
+            mouseMove(10, 15);
+            mouseUp(10, 15);
+
+            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60], [30, 25, 10, 15] ]);
+        });
+
         it("does not draw line segment in response to mouseup event", function() {
             $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append($drawingArea);
@@ -186,36 +217,41 @@
             expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60] ]);
         });
 
-        it("draws multiple line segments when mouse is dragged multiple places", function () {
+        it("does not start drawing if drag is started outside drawing area", function () {
             $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append($drawingArea);
             raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
-            mouseDown(20, 30);
+            mouseDown(601, 150);
             mouseMove(50, 60);
-            mouseMove(40, 20);
-            mouseMove(10, 15);
 
-            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60], [50, 60, 40, 20], [40, 20, 10, 15] ]);
+            mouseDown(-1, 150);
+            mouseMove(50, 60);
+
+            mouseDown(120, 301);
+            mouseMove(50, 60);
+
+            mouseDown(-1, 301);
+            mouseMove(50, 60);
+
+            expect(paperPaths(raphPaper)).to.eql([ ]);
         });
 
-        it("draws multiple line segments when there are multiple drags", function () {
+        it("does start drawing if drag is initiated exactly at edge of drawing area", function () {
             $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
             $("body").append($drawingArea);
             raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
-            mouseDown(20, 30);
+            mouseDown(600, 300);
             mouseMove(50, 60);
             mouseUp(50, 60);
 
-            mouseMove(40, 20);
-            mouseDown(30, 25);
-            mouseMove(10, 15);
-            mouseUp(10, 15);
+            mouseDown(0, 0);
+            mouseMove(50, 60);
+            mouseUp(50, 60);
 
-            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 50, 60], [30, 25, 10, 15] ]);
+            expect(paperPaths(raphPaper)).to.eql([ [600, 300, 50, 60], [0, 0, 50, 60] ]);
         });
-
 
 //        it("considers border when calculating mouse target", function () {
 //            $drawingArea = $("<div style='height: 300px; width:600px; border-width:13px;'>Hi, jerk.</div>");

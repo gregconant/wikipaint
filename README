@@ -403,6 +403,7 @@ episode 62: Telling the Story
 
 
 episode 63: Outside In
+- dragging outside drawing area should not draw a line
 
 to build:
     - run ./jake.sh

@@ -22,7 +22,11 @@ wikiPaint = (function () {
             $jqArea = $(drawingAreaElement);
 
         $jqArea.mousedown(function (event) {
-            start = relativeOffset($jqArea, event.pageX, event.pageY);
+
+            var offset = relativeOffset($jqArea, event.pageX, event.pageY);
+            if(offset.x >= 0 && offset.x <= paper.width && offset.y >= 0 && offset.y <= paper.height) {
+                start = offset;
+            }
         });
 
         $jqArea.mousemove(function (event) {

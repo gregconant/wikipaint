@@ -21,7 +21,7 @@
                 x2: regex[3],
                 y2: regex[4]
             };
-        },
+        };
 
         vmlPathFor = function(element) {
             var startX,
@@ -167,23 +167,6 @@
             });
             return elements;
         }
-
-        it("should draw a line", function () {
-            $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-            $("body").append($drawingArea);
-            raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
-
-            var elements = [];
-
-            wikiPaint.drawLine(20, 30, 30, 300);
-
-            expect(paperPaths(raphPaper)).to.eql([ [20, 30, 30, 300 ] ]);
-
-//            elements = getElements(raphPaper);
-//            expect(elements.length).to.equal(1);
-//            expect(pathFor(elements[0])).to.equal("M20,30L30,300");
-
-        });
 
         it("draws line segments in response to clicks", function () {
             // click inside drawing area

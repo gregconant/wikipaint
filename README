@@ -399,6 +399,8 @@ Fine-Tuning Mouse Gestures
 episode 62: Telling the Story
 - want to clean up the drawing and handle a couple weird cases
 - generally clean up code
+- figure out how to factor out common test setup code
+
 
 episode 63: Outside In
 

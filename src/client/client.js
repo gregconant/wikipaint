@@ -5,7 +5,17 @@ wikiPaint = (function () {
 
     var paper,
         self = {},
-        relativeOffset;
+        relativeOffset,
+        drawLine;
+
+    self.initializeDrawingArea = function (drawingAreaElement) {
+
+        paper = new Raphael(drawingAreaElement); // returns Raphael paper object
+
+        handleDragEvents(drawingAreaElement);
+
+        return paper;
+    };
 
     function handleDragEvents(drawingAreaElement) {
         var start = null,
@@ -20,7 +30,7 @@ wikiPaint = (function () {
                 return;
             }
             var end = relativeOffset($jqArea, event.pageX, event.pageY);
-            wikiPaint.drawLine(start.x, start.y, end.x, end.y);
+            drawLine(start.x, start.y, end.x, end.y);
             start = end;
         });
 
@@ -29,16 +39,7 @@ wikiPaint = (function () {
         });
     }
 
-    self.initializeDrawingArea = function (drawingAreaElement) {
-
-        paper = new Raphael(drawingAreaElement); // returns Raphael paper object
-
-        handleDragEvents(drawingAreaElement);
-
-        return paper;
-    };
-
-    self.drawLine = function(startX, startY, endX, endY) {
+    drawLine = function(startX, startY, endX, endY) {
         paper.path("M" + startX + ","+ startY + "L" + endX + "," + endY);
     };
 

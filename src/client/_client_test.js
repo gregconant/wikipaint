@@ -100,32 +100,23 @@
 
 
         function mouseDown(relativeX, relativeY) {
-            var page = pageOffset($drawingArea, relativeX, relativeY),
-                eventData = new jQuery.Event("mousedown");
-
-            eventData.pageX = page.x;
-            eventData.pageY = page.y;
-            $drawingArea.trigger(eventData);
+            sendMouseEvent("mousedown", relativeX, relativeY);
         }
         function mouseMove(relativeX, relativeY) {
-            var topLeftOfDrawingArea = $drawingArea.offset(),
-                pageX = relativeX + topLeftOfDrawingArea.left,
-                pageY = relativeY + topLeftOfDrawingArea.top,
-                eventData = new jQuery.Event("mousemove");
-
-            eventData.pageX = pageX;
-            eventData.pageY = pageY;
-            $drawingArea.trigger(eventData);
+            sendMouseEvent("mousemove", relativeX, relativeY);
         }
 
         function mouseUp(relativeX, relativeY) {
-            var topLeftOfDrawingArea = $drawingArea.offset(),
-                pageX = relativeX + topLeftOfDrawingArea.left,
-                pageY = relativeY + topLeftOfDrawingArea.top,
-                eventData = new jQuery.Event("mouseup");
+            sendMouseEvent("mouseup", relativeX, relativeY);
+        }
 
-            eventData.pageX = pageX;
-            eventData.pageY = pageY;
+        function sendMouseEvent(event, relativeX, relativeY) {
+            var page = pageOffset($drawingArea, relativeX, relativeY),
+                eventData = new jQuery.Event();
+
+            eventData.pageX = page.x;
+            eventData.pageY = page.y;
+            eventData.type = event;
             $drawingArea.trigger(eventData);
         }
 

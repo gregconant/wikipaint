@@ -3,16 +3,17 @@
 (function () {
     "use strict";
 
-    var $drawingArea,
-        raphPaper,
-        pathFor,
-        svgPathFor,
-        pathStringForIE9,
-        vmlPathFor,
-        pathObjectFromRegex,
-        VML_MAGIC_NUMBER = 21600;
-
     describe("Drawing area", function () {
+
+        var $drawingArea,
+            raphPaper,
+            pathFor,
+            svgPathFor,
+            pathStringForIE9,
+            vmlPathFor,
+            pathObjectFromRegex,
+            VML_MAGIC_NUMBER = 21600;
+
         pathObjectFromRegex = function(regex){
             return [
                 regex[1],
@@ -21,7 +22,6 @@
                 regex[4]
             ];
         };
-
 
         vmlPathFor = function(element) {
             var startX,
@@ -43,7 +43,6 @@
                 endX,
                 endY
             ];
-
         };
 
         svgPathFor = function(element) {
@@ -91,11 +90,28 @@
             return result;
         }
 
+        function pageOffset(drawingArea, relativeX, relativeY){
+            var topLeftOfDrawingArea = drawingArea.offset();
+            return {
+                x: relativeX + topLeftOfDrawingArea.left,
+                y: relativeY + topLeftOfDrawingArea.top
+            };
+        }
+
+
         function mouseDown(relativeX, relativeY) {
+            var page = pageOffset($drawingArea, relativeX, relativeY),
+                eventData = new jQuery.Event("mousedown");
+
+            eventData.pageX = page.x;
+            eventData.pageY = page.y;
+            $drawingArea.trigger(eventData);
+        }
+        function mouseMove(relativeX, relativeY) {
             var topLeftOfDrawingArea = $drawingArea.offset(),
                 pageX = relativeX + topLeftOfDrawingArea.left,
                 pageY = relativeY + topLeftOfDrawingArea.top,
-                eventData = new jQuery.Event("mousedown");
+                eventData = new jQuery.Event("mousemove");
 
             eventData.pageX = pageX;
             eventData.pageY = pageY;
@@ -112,22 +128,6 @@
             eventData.pageY = pageY;
             $drawingArea.trigger(eventData);
         }
-
-        function mouseMove(relativeX, relativeY) {
-            var topLeftOfDrawingArea = $drawingArea.offset(),
-                pageX = relativeX + topLeftOfDrawingArea.left,
-                pageY = relativeY + topLeftOfDrawingArea.top,
-                eventData = new jQuery.Event("mousemove");
-
-            eventData.pageX = pageX;
-            eventData.pageY = pageY;
-            $drawingArea.trigger(eventData);
-        }
-
-
-        beforeEach(function() {
-
-        });
 
         afterEach(function () {
            $drawingArea.remove();

@@ -4,46 +4,36 @@ wikiPaint = (function () {
    "use strict";
 
     var paper,
-        self = {};
+        self = {},
+        relativeOffset;
 
-    self.initializeDrawingArea = function (drawingAreaElement) {
-
+    function handleDragEvents(drawingAreaElement) {
         var start = null,
-            end = null,
-            $jqArea = $(drawingAreaElement),
-            isDragging = false,
-
-            relativeOffset = function(absoluteX, absoluteY) {
-                var pageOffset = $jqArea.offset();
-
-                return {
-                    x: absoluteX - pageOffset.left,
-                    y: absoluteY - pageOffset.top
-                };
-            };
-
-        // returns Raphael paper object
-        paper = new Raphael(drawingAreaElement);
+            $jqArea = $(drawingAreaElement);
 
         $jqArea.mousedown(function (event) {
-            start = relativeOffset(event.pageX, event.pageY);
+            start = relativeOffset($jqArea, event.pageX, event.pageY);
+        });
+
+        $jqArea.mousemove(function (event) {
+            if (start === null) {
+                return;
+            }
+            var end = relativeOffset($jqArea, event.pageX, event.pageY);
+            wikiPaint.drawLine(start.x, start.y, end.x, end.y);
+            start = end;
         });
 
         $jqArea.mouseup(function (event) {
             start = null;
         });
+    }
 
-        $jqArea.mousemove(function (event) {
-            end = relativeOffset(event.pageX, event.pageY);
-            if(start === null) {
-                return;
-            }
-            else {
-                wikiPaint.drawLine(start.x, start.y, end.x, end.y);
-            }
+    self.initializeDrawingArea = function (drawingAreaElement) {
 
-            start = end;
-        });
+        paper = new Raphael(drawingAreaElement); // returns Raphael paper object
+
+        handleDragEvents(drawingAreaElement);
 
         return paper;
     };
@@ -51,6 +41,16 @@ wikiPaint = (function () {
     self.drawLine = function(startX, startY, endX, endY) {
         paper.path("M" + startX + ","+ startY + "L" + endX + "," + endY);
     };
+
+    relativeOffset = function($element, absoluteX, absoluteY) {
+        var pageOffset = $element.offset();
+
+        return {
+            x: absoluteX - pageOffset.left,
+            y: absoluteY - pageOffset.top
+        };
+    };
+
 
     return self;
 

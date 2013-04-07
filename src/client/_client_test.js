@@ -103,22 +103,23 @@
             sendMouseEvent("mousedown", relativeX, relativeY);
         }
 
-        function mouseMove(relativeX, relativeY) {
-            sendMouseEvent("mousemove", relativeX, relativeY);
+        function mouseMove(relativeX, relativeY, optionalElement) {
+            sendMouseEvent("mousemove", relativeX, relativeY, optionalElement);
         }
 
         function mouseUp(relativeX, relativeY) {
             sendMouseEvent("mouseup", relativeX, relativeY);
         }
 
-        function sendMouseEvent(event, relativeX, relativeY) {
+        function sendMouseEvent(event, relativeX, relativeY, optionalJqElement) {
             var page = pageOffset($drawingArea, relativeX, relativeY),
-                eventData = new jQuery.Event();
+                eventData = new jQuery.Event(),
+                jqElement = optionalJqElement || $drawingArea;
 
             eventData.pageX = page.x;
             eventData.pageY = page.y;
             eventData.type = event;
-            $drawingArea.trigger(eventData);
+            jqElement.trigger(eventData);
         }
 
         afterEach(function () {
@@ -228,7 +229,7 @@
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
-                mouseMove(700, 70);
+                mouseMove(700, 70, $(document));
                 mouseMove(90, 40);
                 mouseUp(90, 40);
 

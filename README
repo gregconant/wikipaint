@@ -418,6 +418,11 @@ episode 65: A Big Step Back
 - may need test code to say which element the mouse event has to go against.
 
 episode 66: Event-Full
+- in tests, when mouse leaves drawing area, it fires an event. this is not what happens
+  in reality. Pass $(document) in to mouseMove() function so it knows where to fire the
+  event correctly.
+- faulty tests are registering events on the $(document) element every test. These
+  events are not being cleared after each test.
 
 to build:
     - run ./jake.sh

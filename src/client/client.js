@@ -25,7 +25,7 @@ wikiPaint = (function () {
             return offset.x >= 0 && offset.x <= paper.width && offset.y >= 0 && offset.y <= paper.height;
         }
 
-        $jqArea.mousedown(function (event) {
+        $(document).mousedown(function (event) {
 
             var offset = relativeOffset($jqArea, event.pageX, event.pageY);
             if(isWithinDrawingArea(offset)) {
@@ -33,7 +33,7 @@ wikiPaint = (function () {
             }
         });
 
-        $jqArea.mousemove(function (event) {
+        $(document).mousemove(function (event) {
             if (start === null) {
                 return;
             }
@@ -48,7 +48,7 @@ wikiPaint = (function () {
 
         });
 
-        $jqArea.mouseup(function (event) {
+        $(document).mouseup(function (event) {
             start = null;
         });
     }

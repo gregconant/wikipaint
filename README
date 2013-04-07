@@ -417,5 +417,7 @@ episode 65: A Big Step Back
   to this some time.
 - may need test code to say which element the mouse event has to go against.
 
+episode 66: Event-Full
+
 to build:
     - run ./jake.sh

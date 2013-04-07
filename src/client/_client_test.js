@@ -81,8 +81,8 @@
             }
         };
 
-        function paperPaths(paper) {
-            var elements = getElements(paper),
+        function lineSegments() {
+            var elements = getElements(raphPaper),
                 result = [];
             for (var i = 0; i < elements.length; i += 1) {
                 result.push(pathFor(elements[i]));
@@ -156,7 +156,7 @@
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                expect(paperPaths(raphPaper)).to.eql([
+                expect(lineSegments()).to.eql([
                                                          [20, 30, 50, 60]
                                                      ]);
             });
@@ -170,11 +170,11 @@
                 mouseMove(10, 15);
                 mouseUp(10, 15);
 
-                expect(paperPaths(raphPaper)).to.eql([
-                                                         [20, 30, 50, 60],
-                                                         [50, 60, 40, 20],
-                                                         [40, 20, 10, 15]
-                                                     ]);
+                expect(lineSegments()).to.eql([
+                                             [20, 30, 50, 60],
+                                             [50, 60, 40, 20],
+                                             [40, 20, 10, 15]
+                                         ]);
             });
 
             it("draws multiple line segments when there are multiple drags", function () {
@@ -189,7 +189,7 @@
                 mouseMove(10, 15);
                 mouseUp(10, 15);
 
-                expect(paperPaths(raphPaper)).to.eql([
+                expect(lineSegments()).to.eql([
                                                          [20, 30, 50, 60],
                                                          [30, 25, 10, 15]
                                                      ]);
@@ -200,7 +200,7 @@
                 mouseDown(20, 30);
                 mouseUp(50, 60);
 
-                expect(paperPaths(raphPaper)).to.eql([ ]);
+                expect(lineSegments()).to.eql([ ]);
             });
 
             it("does not draw line segments when mouse button is not down", function () {
@@ -208,7 +208,7 @@
                 mouseMove(20, 30);
                 mouseMove(50, 60);
 
-                expect(paperPaths(raphPaper)).to.eql([]);
+                expect(lineSegments()).to.eql([]);
             });
 
             it("stops drawing line segments after mouse button is released", function () {
@@ -218,7 +218,7 @@
                 mouseUp(50, 60);
                 mouseMove(10, 15);
 
-                expect(paperPaths(raphPaper)).to.eql([
+                expect(lineSegments()).to.eql([
                                                          [20, 30, 50, 60]
                                                      ]);
             });
@@ -232,7 +232,7 @@
                 mouseMove(90, 40);
                 mouseUp(90, 40);
 
-                expect(paperPaths(raphPaper)).to.eql([
+                expect(lineSegments()).to.eql([
                                                          [20, 30, 50, 60]
                                                      ]);
             });
@@ -255,7 +255,7 @@
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                expect(paperPaths(raphPaper)).to.eql([ ]);
+                expect(lineSegments()).to.eql([ ]);
             });
 
             it("does start drawing if drag is initiated exactly at edge of drawing area", function () {
@@ -268,7 +268,7 @@
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                expect(paperPaths(raphPaper)).to.eql([
+                expect(lineSegments()).to.eql([
                                                          [600, 300, 50, 60],
                                                          [0, 0, 50, 60]
                                                      ]);

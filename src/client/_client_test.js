@@ -144,11 +144,14 @@
 
         describe("line drawing", function () {
 
-
-            it("draws a line in response to mouse drag", function () {
+            beforeEach(function() {
                 $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
                 $("body").append($drawingArea);
                 raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
+            });
+
+
+            it("draws a line in response to mouse drag", function () {
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
@@ -160,9 +163,6 @@
 
 
             it("draws multiple line segments when mouse is dragged multiple places", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
@@ -177,9 +177,6 @@
             });
 
             it("draws multiple line segments when there are multiple drags", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
@@ -197,9 +194,6 @@
             });
 
             it("does not draw line segment in response to mouseup event", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(20, 30);
                 mouseUp(50, 60);
@@ -208,9 +202,6 @@
             });
 
             it("does not draw line segments when mouse is not down", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseMove(20, 30);
                 mouseMove(50, 60);
@@ -219,9 +210,6 @@
             });
 
             it("stops drawing line segments when mouse is up", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
@@ -235,9 +223,6 @@
 
             it("stops drawing when mouse leaves drawing area", function () {
                 // TODO: this test passes but when done manually, code doesn't work.
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
@@ -252,9 +237,6 @@
 
 
             it("does not start drawing if drag is started outside drawing area", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(601, 150);
                 mouseMove(50, 60);
@@ -272,9 +254,6 @@
             });
 
             it("does start drawing if drag is initiated exactly at edge of drawing area", function () {
-                $drawingArea = $("<div style='height: 300px; width:600px;'>Hi, jerk.</div>");
-                $("body").append($drawingArea);
-                raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
 
                 mouseDown(600, 300);
                 mouseMove(50, 60);

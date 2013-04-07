@@ -21,10 +21,14 @@ wikiPaint = (function () {
         var start = null,
             $jqArea = $(drawingAreaElement);
 
+        function isWithinDrawingArea(offset) {
+            return offset.x >= 0 && offset.x <= paper.width && offset.y >= 0 && offset.y <= paper.height;
+        }
+
         $jqArea.mousedown(function (event) {
 
             var offset = relativeOffset($jqArea, event.pageX, event.pageY);
-            if(offset.x >= 0 && offset.x <= paper.width && offset.y >= 0 && offset.y <= paper.height) {
+            if(isWithinDrawingArea(offset)) {
                 start = offset;
             }
         });
@@ -34,8 +38,14 @@ wikiPaint = (function () {
                 return;
             }
             var end = relativeOffset($jqArea, event.pageX, event.pageY);
-            drawLine(start.x, start.y, end.x, end.y);
-            start = end;
+            if(isWithinDrawingArea(end)) {
+                drawLine(start.x, start.y, end.x, end.y);
+                start = end;
+            }
+            else {
+                start = null;
+            }
+
         });
 
         $jqArea.mouseup(function (event) {

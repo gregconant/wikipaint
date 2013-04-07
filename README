@@ -405,5 +405,10 @@ episode 62: Telling the Story
 episode 63: Outside In
 - dragging outside drawing area should not draw a line
 
+episode 64: Inside Out
+- dragging from inside drawing area to outside, turn off drawing
+    - mouseleave event?
+- might need mousemove event to be on document instead of drawing area
+
 to build:
     - run ./jake.sh

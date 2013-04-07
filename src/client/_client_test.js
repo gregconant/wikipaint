@@ -124,6 +124,7 @@
 
         afterEach(function () {
             $drawingArea.remove();
+            $(document).unbind();
         });
 
         it("should have the same dimensions as its enclosing div", function () {
@@ -150,7 +151,6 @@
                 $("body").append($drawingArea);
                 raphPaper = wikiPaint.initializeDrawingArea($drawingArea[0]);
             });
-
 
             it("draws a line in response to mouse drag", function () {
                 mouseDown(20, 30);

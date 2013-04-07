@@ -410,5 +410,12 @@ episode 64: Inside Out
     - mouseleave event?
 - might need mousemove event to be on document instead of drawing area
 
+episode 65: A Big Step Back
+- cleaning up the tests so it's easier to diagnose the problem
+- can do nested "describe"s in Mocha, so each can have its own setup and teardown
+- removed TODO from client_test code that em is converted to px. need to get back
+  to this some time.
+
+
 to build:
     - run ./jake.sh

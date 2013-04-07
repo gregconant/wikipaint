@@ -424,5 +424,7 @@ episode 66: Event-Full
 - faulty tests are registering events on the $(document) element every test. These
   events are not being cleared after each test.
 
+episode 67: Self-Contained
+
 to build:
     - run ./jake.sh

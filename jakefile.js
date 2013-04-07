@@ -13,8 +13,8 @@
         lint = require("./build/lint/lint_runner.js"),
         nodeUnit = require("nodeunit").reporters["default"],
         SUPPORTED_BROWSERS = [
-            "IE 9.0",
-            "Chrome 23.0",
+            "IE 10.0",
+            "Chrome 26.0",
             "Firefox 18.0"
         ];
 

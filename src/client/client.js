@@ -25,7 +25,7 @@ wikiPaint = (function () {
             return offset.x >= 0 && offset.x <= paper.width && offset.y >= 0 && offset.y <= paper.height;
         }
 
-        $(document).mousedown(function (event) {
+        $jqArea.mousedown(function (event) {
 
             var offset = relativeOffset($jqArea, event.pageX, event.pageY);
             if(isWithinDrawingArea(offset)) {
@@ -33,22 +33,20 @@ wikiPaint = (function () {
             }
         });
 
-        $(document).mousemove(function (event) {
+        $jqArea.mousemove(function (event) {
             if (start === null) {
                 return;
             }
             var end = relativeOffset($jqArea, event.pageX, event.pageY);
-            if(isWithinDrawingArea(end)) {
-                drawLine(start.x, start.y, end.x, end.y);
-                start = end;
-            }
-            else {
-                start = null;
-            }
-
+            drawLine(start.x, start.y, end.x, end.y);
+            start = end;
         });
 
-        $(document).mouseup(function (event) {
+        $jqArea.mouseleave(function (event) {
+            start = null;
+        });
+
+        $jqArea.mouseup(function (event) {
             start = null;
         });
     }

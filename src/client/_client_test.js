@@ -99,16 +99,21 @@
         }
 
 
-        function mouseDown(relativeX, relativeY) {
-            sendMouseEvent("mousedown", relativeX, relativeY);
+        function mouseDown(relativeX, relativeY, optionalElement) {
+            sendMouseEvent("mousedown", relativeX, relativeY, optionalElement);
         }
 
         function mouseMove(relativeX, relativeY, optionalElement) {
             sendMouseEvent("mousemove", relativeX, relativeY, optionalElement);
+            // TODO: remove optional element? (probably no longer needed)
         }
 
-        function mouseUp(relativeX, relativeY) {
-            sendMouseEvent("mouseup", relativeX, relativeY);
+        function mouseLeave(relativeX, relativeY, optionalElement) {
+            sendMouseEvent("mouseleave", relativeX, relativeY, optionalElement);
+        }
+
+        function mouseUp(relativeX, relativeY, optionalElement) {
+            sendMouseEvent("mouseup", relativeX, relativeY, optionalElement);
         }
 
         function sendMouseEvent(event, relativeX, relativeY, optionalJqElement) {
@@ -124,7 +129,7 @@
 
         afterEach(function () {
             $drawingArea.remove();
-            $(document).unbind();
+//            $(document).unbind();
         });
 
         it("should have the same dimensions as its enclosing div", function () {
@@ -158,8 +163,8 @@
                 mouseUp(50, 60);
 
                 expect(lineSegments()).to.eql([
-                                                         [20, 30, 50, 60]
-                                                     ]);
+                                                  [20, 30, 50, 60]
+                                              ]);
             });
 
 
@@ -172,10 +177,10 @@
                 mouseUp(10, 15);
 
                 expect(lineSegments()).to.eql([
-                                             [20, 30, 50, 60],
-                                             [50, 60, 40, 20],
-                                             [40, 20, 10, 15]
-                                         ]);
+                                                  [20, 30, 50, 60],
+                                                  [50, 60, 40, 20],
+                                                  [40, 20, 10, 15]
+                                              ]);
             });
 
             it("draws multiple line segments when there are multiple drags", function () {
@@ -191,9 +196,9 @@
                 mouseUp(10, 15);
 
                 expect(lineSegments()).to.eql([
-                                                         [20, 30, 50, 60],
-                                                         [30, 25, 10, 15]
-                                                     ]);
+                                                  [20, 30, 50, 60],
+                                                  [30, 25, 10, 15]
+                                              ]);
             });
 
             it("does not draw line segment when mouse button is released", function () {
@@ -204,7 +209,7 @@
                 expect(lineSegments()).to.eql([ ]);
             });
 
-            it("does not draw line segments when mouse button is not down", function () {
+            it("does not draw line segments when mouse button has never been pushed", function () {
 
                 mouseMove(20, 30);
                 mouseMove(50, 60);
@@ -220,8 +225,8 @@
                 mouseMove(10, 15);
 
                 expect(lineSegments()).to.eql([
-                                                         [20, 30, 50, 60]
-                                                     ]);
+                                                  [20, 30, 50, 60]
+                                              ]);
             });
 
             it("stops drawing when mouse leaves drawing area", function () {
@@ -229,30 +234,31 @@
 
                 mouseDown(20, 30);
                 mouseMove(50, 60);
+                mouseLeave(700, 70);
                 mouseMove(700, 70, $(document));
                 mouseMove(90, 40);
                 mouseUp(90, 40);
 
                 expect(lineSegments()).to.eql([
-                                                         [20, 30, 50, 60]
-                                                     ]);
+                                                  [20, 30, 50, 60]
+                                              ]);
             });
 
             it("does not start drawing if drag is started outside drawing area", function () {
 
-                mouseDown(601, 150);
+                mouseDown(601, 150, $(document));
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                mouseDown(-1, 150);
+                mouseDown(-1, 150, $(document));
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                mouseDown(120, 301);
+                mouseDown(120, 301, $(document));
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
-                mouseDown(-1, 301);
+                mouseDown(-1, 301, $(document));
                 mouseMove(50, 60);
                 mouseUp(50, 60);
 
@@ -270,9 +276,9 @@
                 mouseUp(50, 60);
 
                 expect(lineSegments()).to.eql([
-                                                         [600, 300, 50, 60],
-                                                         [0, 0, 50, 60]
-                                                     ]);
+                                                  [600, 300, 50, 60],
+                                                  [0, 0, 50, 60]
+                                              ]);
             });
         });
 

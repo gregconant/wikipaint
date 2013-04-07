@@ -15,7 +15,7 @@
         SUPPORTED_BROWSERS = [
             "IE 10.0",
             "Chrome 26.0",
-            "Firefox 18.0"
+            "Firefox 20.0"
         ];
 
     directory(TEMP_TESTFILE_DIR);

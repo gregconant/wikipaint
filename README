@@ -428,6 +428,7 @@ episode 67: Self-Contained
 - updated Chrome to v.23 and Firefox to v.20. This caused weird Firefox issues with
   it failing tests because we declared global variables. Not using Firefox at the moment.
 - need mouse button to go up when we leave the drawing area
+- next time: when dragging outside of drawing area, we don't want to select text.
 
 to build:
     - run ./jake.sh

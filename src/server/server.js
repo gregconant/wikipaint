@@ -1,9 +1,9 @@
-(function () {
+/* global define */
+
+define(['raphael', 'http', 'fs'], function(raph, http, fs) {
     "use strict";
 
-    var http = require("http"),
-        fs = require("fs"),
-        server;
+    var server;
 
     exports.start = function (homePageToServe, notFoundPageToServe, portNumber, callback) {
         if (!portNumber) {
@@ -40,4 +40,4 @@
             response.end(data);
         });
     }
-}());
+});

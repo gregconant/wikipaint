@@ -430,5 +430,8 @@ episode 67: Self-Contained
 - need mouse button to go up when we leave the drawing area
 - next time: when dragging outside of drawing area, we don't want to select text.
 
+episode 68: Event Propagation & Defaults
+
+
 to build:
     - run ./jake.sh

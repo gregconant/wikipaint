@@ -1,6 +1,6 @@
 /*global define, describe, it, expect, dump, window, Raphael, $, alert, wikiPaint:true */
 
-define(['raphael'], function() {
+define(['jquery', 'raphael'], function($, Raphael) {
     "use strict";
 
     var paper,

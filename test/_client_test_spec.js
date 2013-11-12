@@ -2,11 +2,16 @@
 
 define(['client'], function(theClient) {
   describe('a quick test', function() {
-    it('does not blow up', function() {
-      expect('something').to.equal('somethingElse');
+    it('passes', function() {
+      expect('something').to.equal('something');
     });
   });
 
+  describe('a second test', function() {
+    it('does not pass', function() {
+      expect('something').to.equal('somethingElse');
+    });
+  });
 
 });
 

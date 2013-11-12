@@ -7,18 +7,19 @@ module.exports = function(config) {
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
+    plugins: [ 'karma-mocha', 'karma-requirejs' ],
 
     // frameworks to use
-    frameworks: ['requirejs'],
+    frameworks: ['mocha', 'requirejs'],
 
 
     // list of files / patterns to load in the browser
     files: [
+      'test/test-main.js',
       './test/*client_test_spec.js'
       //{pattern: './vendor_client/jquery-1.8.3.js', included: true },
       //{pattern: './vendor_client/raphael-2.1.0-min.js', included: false },
 //      'src/server/content/homepage.html',
-      //'test/test-main.js'
     ],
 
 

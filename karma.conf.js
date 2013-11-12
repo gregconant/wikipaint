@@ -14,11 +14,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      './test/*client_test_spec.js',
+      './test/*client_test_spec.js'
       //{pattern: './vendor_client/jquery-1.8.3.js', included: true },
       //{pattern: './vendor_client/raphael-2.1.0-min.js', included: false },
 //      'src/server/content/homepage.html',
-      'test/test-main.js'
+      //'test/test-main.js'
     ],
 
 
@@ -44,7 +44,7 @@ module.exports = function(config) {
 
     // level of logging
     // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_WARN,
+    logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
     autoWatch: false,

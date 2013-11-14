@@ -15,8 +15,10 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'test/test-main.js',
-      {pattern: 'src/client/client*.js', included: false},
-      {pattern: 'test/_client_*_spec.js', included: false}
+      {pattern: 'src/client/client*.js', included: false },
+      {pattern: 'test/_client_*_spec.js', included: false },
+      {pattern: 'vendor_client/jquery-1.8.3.js', included: true },
+      {pattern: 'vendor_client/raphael/*.js', included: true }
       //{pattern: './vendor_client/jquery-1.8.3.js', included: true },
       //{pattern: './vendor_client/raphael-2.1.0-min.js', included: false },
 //      'src/server/content/homepage.html',

@@ -1,16 +1,5 @@
 /*global jQuery, define, describe, it, expect, afterEach, beforeEach, dump, require, $, wikiPaint, Raphael*/
 
-define(['client'], function(theClient) {
-  describe('a quick test', function() {
-    it('does not blow up', function() {
-      expect('something').to.equal('somethingElse');
-    });
-  });
-
-
-});
-
-/*
 define(['jquery', 'client'], function($, wikiPaint) {
     "use strict";
 
@@ -296,4 +285,3 @@ define(['jquery', 'client'], function($, wikiPaint) {
 
     });
 });
-    */

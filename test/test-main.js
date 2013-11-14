@@ -8,20 +8,19 @@ for (var file in window.__karma__.files) {
   }
 }
 
-
-/*
 requirejs.config({
                    // Karma serves files from '/base'
-                   baseUrl: '/base/src',
+                   baseUrl: '/base',
 
                    paths: {
-
+                     "client": "src/client/client",
+                     //"server": "src/server/server",
                      "eve": "vendor_client/raphael/eve",
                      'raphael-core' : 'vendor_client/raphael/raphael.core',
                      'raphael-svg' : 'vendor_client/raphael/raphael.svg',
                      'raphael-vml' : 'vendor_client/raphael/raphael.vml',
                      'raphael' : 'vendor_client/raphael/raphael.amd',
-                     'jquery': 'vendor_client/jquery-1.8.3'
+                     "jquery": "vendor_client/jquery-1.8.3"
                    },
 
                    shim: {
@@ -36,4 +35,3 @@ requirejs.config({
                    // start test run, once Require.js is done
                    callback: window.__karma__.start
                  });
-*/

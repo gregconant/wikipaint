@@ -14,13 +14,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'test/test-main.js',
+      {pattern: 'vendor_client/jqu111ery', included: true },
+      {pattern: 'vendor/client/raphael/eve', included: true },
+      {pattern: 'vendor_client/raphael/raphael.core', included: true },
+      {pattern: 'vendor_client/raphael/raphael.amd', included: true },
+      {pattern: 'vendor_client/raphael/raphael.svg', included: true },
+      {pattern: 'vendor_client/raphael/raphael.vml', included: true },
       {pattern: 'src/client/client*.js', included: false },
       {pattern: 'test/_client_*_spec.js', included: false },
-      //{pattern: 'vendor_client/jquery-1.8.3.js', included: true },
-      {pattern: 'vendor_client/jquery-1.8.3', included: true },
-      {pattern: 'vendor_client/raphael/*.js', included: true },
-      {pattern: 'vendor_client/raphael-2.1.2-min.js', included: true }
+      'test/test-main.js'
       //{pattern: './vendor_client/raphael-2.1.0-min.js', included: false }
 //      'src/server/content/homepage.html',
 
@@ -28,8 +30,7 @@ module.exports = function(config) {
 
     // list of files to exclude
     exclude: [
-      'src/main.js',
-      'vendor_client/raphael/raphael.core.js'
+      'src/main.js'
     ],
 
     // test results reporter to use

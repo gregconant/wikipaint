@@ -14,13 +14,13 @@ requirejs.config({
 
                    paths: {
                      "client": "src/client/client",
-                     "jquery": "vendor_client/jquery-1.8.3",
+                     "jquery": "vendor_client/jquery",
                      //"server": "src/server/server",
                      "eve": "vendor_client/raphael/eve",
-                     'raphael' : 'vendor_client/raphael/raphael.amd',
-                     'raphael-core' : 'vendor_client/raphael-2.1.2',
+                     'raphael-core' : 'vendor_client/raphael/raphael.core',
                      'raphael-svg' : 'vendor_client/raphael/raphael.svg',
-                     'raphael-vml' : 'vendor_client/raphael/raphael.vml'
+                     'raphael-vml' : 'vendor_client/raphael/raphael.vml',
+                     'raphael' : 'vendor_client/raphael/raphael.amd'
 //                     "raphael" : 'vendor_client/raphael-2.1.0-min.js',
                    },
 

@@ -1,6 +1,6 @@
 /*global jQuery, define, describe, it, expect, afterEach, beforeEach, dump, require, $, wikiPaint, Raphael*/
 
-define(['jquery', 'client'], function($, wikiPaint) {
+define(['jquery', 'client', 'raphael'], function($, wikiPaint, Raphael) {
     "use strict";
 
     describe("Drawing area", function () {

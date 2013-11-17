@@ -11,17 +11,14 @@ for (var file in window.__karma__.files) {
 requirejs.config({
                    // Karma serves files from '/base'
                    baseUrl: '/base',
-
                    paths: {
-                     "client": "src/client/client",
-                     "jquery": "vendor_client/jquery",
-                     //"server": "src/server/server",
-                     "eve": "vendor_client/raphael/eve",
+                     'client': 'src/client/client',
+                     'jquery': 'vendor_client/jquery',
+                     'eve': 'vendor_client/raphael/eve',
                      'raphael-core' : 'vendor_client/raphael/raphael.core',
+                     'raphael' : 'vendor_client/raphael/raphael.amd',
                      'raphael-svg' : 'vendor_client/raphael/raphael.svg',
-                     'raphael-vml' : 'vendor_client/raphael/raphael.vml',
-                     'raphael' : 'vendor_client/raphael/raphael.amd'
-//                     "raphael" : 'vendor_client/raphael-2.1.0-min.js',
+                     'raphael-vml' : 'vendor_client/raphael/raphael.vml'
                    },
 
                    shim: {
@@ -29,6 +26,7 @@ requirejs.config({
                        exports: 'eve'
                      },
                      'raphael' : {
+                       deps: ['eve', 'jquery'],
                        exports: 'Raphael'
                      }
                    },

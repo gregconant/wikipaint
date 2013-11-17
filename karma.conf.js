@@ -14,14 +14,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      {pattern: 'vendor_client/jqu111ery', included: true },
-      {pattern: 'vendor/client/raphael/eve', included: true },
-      {pattern: 'vendor_client/raphael/raphael.core', included: true },
-      {pattern: 'vendor_client/raphael/raphael.amd', included: true },
-      {pattern: 'vendor_client/raphael/raphael.svg', included: true },
-      {pattern: 'vendor_client/raphael/raphael.vml', included: true },
+      {pattern: 'vendor_client/jquery.js', included: true },
+      'vendor_client/raphael/eve.js',
+      {pattern: 'vendor_client/raphael/raphael.core.js', included: true },
+      {pattern: 'vendor_client/raphael/raphael.amd.js', included: true },
+      {pattern: 'vendor_client/raphael/raphael.svg.js', included: true },
+      {pattern: 'vendor_client/raphael/raphael.vml.js', included: true },
       {pattern: 'src/client/client*.js', included: false },
-      {pattern: 'test/_client_*_spec.js', included: false },
+      //{pattern: 'test/_client_*_spec.js', included: false },
+      {pattern: 'test/_basic_test_spec.js', included: false },
       'test/test-main.js'
       //{pattern: './vendor_client/raphael-2.1.0-min.js', included: false }
 //      'src/server/content/homepage.html',
